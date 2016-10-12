@@ -48,7 +48,7 @@ typedef struct {
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
-typedef struct Noeud {
+struct Noeud {
     Jeton jeton;
     Noeud* jeton_g;
     Noeud* jeton_d;
