@@ -4,19 +4,30 @@
 
 /* Enumérations */
 typedef enum {
-    FUNCTION, REEL, VARIABLE, OPERATEUR, PARENT_OPEN, PARENT_CLOSE;
+    FUNCTION, REEL, VARIABLE, OPERATEUR, PARENT_OPEN, PARENT_CLOSE
 } Lexeme;
 
 typedef enum {
-    PLUS, MOINS, MULT, DIV;
+    PLUS, MOINS, MULT, DIV
 } Operateur;
 
 typedef enum {
-    SIN, COS, TAN;
+    SIN, COS, TAN
 } Fonction;
 
 typedef enum {
-    101, 102, 103, 201, 202, 203, 301, 302, 303, 401, 402, 403;
+    ERR101 = 101,
+    ERR102 = 102, 
+    ERR103 = 103, 
+    ERR201 = 201, 
+    ERR202 = 202, 
+    ERR203 = 203, 
+    ERR301 = 301, 
+    ERR302 = 302, 
+    ERR303 = 303, 
+    ERR401 = 401, 
+    ERR402 = 402, 
+    ERR403 = 403
 } CodeErreur;
 
 /* Gestion erreurs */
@@ -37,12 +48,12 @@ typedef struct {
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
-typedef struct {
+typedef struct Noeud {
     Jeton jeton;
     Noeud* jeton_g;
     Noeud* jeton_d;
     Noeud* parent;
-} Noeud;
+};
 
 /* Partie 3 : Evaluation */
 
