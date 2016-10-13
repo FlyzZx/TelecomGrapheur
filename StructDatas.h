@@ -12,7 +12,7 @@ typedef enum {
 } Operateur;
 
 typedef enum {
-    SIN, COS, TAN, SQRT
+    SIN, COS, TAN, SQRT, LOG, LN
 } Fonction;
 
 typedef enum {
@@ -33,6 +33,7 @@ typedef enum {
 /* Gestion erreurs */
 typedef struct {
     CodeErreur codeErreur;
+	char message[];
 } Erreur;
 
 /* Partie 1 : Analyse Lexicale*/
