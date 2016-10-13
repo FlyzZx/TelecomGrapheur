@@ -12,7 +12,7 @@ typedef enum {
 } Operateur;
 
 typedef enum {
-    SIN, COS, TAN
+    SIN, COS, TAN, SQRT
 } Fonction;
 
 typedef enum {
