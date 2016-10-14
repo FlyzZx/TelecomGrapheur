@@ -54,19 +54,32 @@ void ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     }
 }
 
+
+
 ASyntaxique::~ASyntaxique() {
 }
 
 Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
     Noeud *noeud = (Noeud*)malloc(sizeof(Noeud));
     if(fg != NULL) noeud->jeton_g = fg;
+    else noeud->jeton_g = 0;
     if(fd != NULL) noeud->jeton_d = fd;
+    else noeud->jeton_d = 0;
     if(parent != NULL) noeud->parent = parent;
+    else noeud->parent = 0;
     noeud->jeton = jeton;
     return noeud;
 }
 
-Noeud* ASyntaxique::creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent) {
-    
-    return 0;
+Noeud *ASyntaxique::getRacine(Noeud *n) {
+    while(n->parent != 0) {
+        n = n->parent;
+        getRacine(n);
+    }
+    return n;
+}
+
+vector<Erreur> ASyntaxique::creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent) {
+
+    return this->erreurs;
 }

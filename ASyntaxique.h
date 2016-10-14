@@ -4,16 +4,18 @@
 #include <cstdlib>
 #include <vector>
 
+using namespace std;
 class ASyntaxique {
 public:
     ASyntaxique();
-    void checkSyntax(std::vector<Jeton> jeton);
-    Noeud* creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
+    void checkSyntax(vector<Jeton> jeton);
+    vector<Erreur> creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
     Noeud* creerNoeud(Jeton jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
+    Noeud* getRacine(Noeud *n);
     virtual ~ASyntaxique();
 private:
     Noeud *racine;
-    std::vector<Erreur> erreurs;
+    vector<Erreur> erreurs;
 };
 
 #endif /* ASYNTAXIQUE_H */
