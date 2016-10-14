@@ -3,9 +3,9 @@
 ASyntaxique::ASyntaxique() {
 }
 
-void ASyntaxique::checkSyntax(Jeton jeton[], int tailleTableau) {
+void ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     int nbPO = 0, nbPC = 0; //Compteurs de parenthéses
-    for(int i = 0; i < tailleTableau; i++) {
+    for(int i = 0; i < jeton.size(); i++) {
         switch(jeton[i].lexeme) {
         case PARENT_OPEN:
             nbPO++;

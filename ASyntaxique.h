@@ -7,7 +7,7 @@
 class ASyntaxique {
 public:
     ASyntaxique();
-    void checkSyntax(Jeton jeton[], int tailleTableau);
+    void checkSyntax(std::vector<Jeton> jeton);
     Noeud* creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
     Noeud* creerNoeud(Jeton *jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
     virtual ~ASyntaxique();
