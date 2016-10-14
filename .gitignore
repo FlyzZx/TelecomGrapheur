@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #################
 ## Eclipse
 #################
@@ -221,3 +222,6 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.autosave
+=======
+*.user
+>>>>>>> refs/remotes/origin/master
