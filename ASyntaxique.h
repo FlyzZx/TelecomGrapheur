@@ -7,7 +7,7 @@ class ASyntaxique {
 public:
     ASyntaxique();
     Noeud* creerArbre(Jeton jeton[]);
-    Noeud* creerNoeud(Jeton *jeton, Noeud *fg, Noeud *fd, Noeud *parent);
+    Noeud* creerNoeud(Jeton *jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
     virtual ~ASyntaxique();
 private:
     Noeud *racine;

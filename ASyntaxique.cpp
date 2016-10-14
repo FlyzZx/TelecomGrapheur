@@ -6,7 +6,7 @@ ASyntaxique::ASyntaxique() {
 ASyntaxique::~ASyntaxique() {
 }
 
-Noeud* ASyntaxique::creerNoeud(Jeton *jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL) {
+Noeud* ASyntaxique::creerNoeud(Jeton *jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
     Noeud *noeud = (Noeud*)malloc(sizeof(Noeud));
     if(fg != NULL) noeud->jeton_g = fg;
     if(fd != NULL) noeud->jeton_d = fd;

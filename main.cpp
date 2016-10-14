@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
     entree[5].lexeme = PARENT_CLOSE;
 
     ASyntaxique *aSyntax = new ASyntaxique();
-    Noeud* n = aSyntax->creerNoeud(&entree[0], NULL, NULL, NULL);
-    Noeud* f = aSyntax->creerNoeud(&entree[1], n, NULL, NULL);
+    Noeud* n = aSyntax->creerNoeud(&entree[0]);
+    Noeud* f = aSyntax->creerNoeud(&entree[1], n);
 
     free(n);
     free(f);
