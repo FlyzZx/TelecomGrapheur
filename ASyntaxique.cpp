@@ -3,7 +3,7 @@
 ASyntaxique::ASyntaxique() {
 }
 
-void ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
+vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     int nbPO = 0, nbPC = 0; //Compteurs de parenthéses
     for(unsigned int i = 0; i < jeton.size(); i++) {
         switch(jeton[i].lexeme) {
@@ -45,23 +45,12 @@ void ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
         err.message = msg;
         this->erreurs.push_back(err);
     }
-
-    if(erreurs.size() == 0) {
-        //Appel de la construction de l'arbre
-    } else {
-        //Cas ou il y a des erreurs
-
-    }
-}
-
-vector<Erreur> ASyntaxique::creerArbre(vector<Jeton> jeton, Noeud *parent) {
-
     return this->erreurs;
 }
 
+Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, Noeud *parent) {
 
-
-ASyntaxique::~ASyntaxique() {
+    return 0;
 }
 
 Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
@@ -76,7 +65,7 @@ Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent)
     return noeud;
 }
 
-Noeud *ASyntaxique::getRacine(Noeud *n) {
+Noeud* ASyntaxique::getRacine(Noeud *n) {
     while(n->parent != 0) {
         n = n->parent;
         getRacine(n);
