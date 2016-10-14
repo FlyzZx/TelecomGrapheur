@@ -33,7 +33,7 @@ typedef enum {
 /* Gestion erreurs */
 typedef struct {
     CodeErreur codeErreur;
-	char message[];
+    char message[200];
 } Erreur;
 
 /* Partie 1 : Analyse Lexicale*/
@@ -49,12 +49,12 @@ typedef struct {
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
-struct Noeud {
+typedef struct Noeud {
     Jeton jeton;
     Noeud* jeton_g;
     Noeud* jeton_d;
     Noeud* parent;
-};
+} Noeud;
 
 /* Partie 3 : Evaluation */
 

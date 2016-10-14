@@ -2,16 +2,18 @@
 #define ASYNTAXIQUE_H
 #include "StructDatas.h"
 #include <cstdlib>
+#include <vector>
 
 class ASyntaxique {
 public:
     ASyntaxique();
-    Noeud* creerArbre(Jeton jeton[]);
+    void checkSyntax(Jeton jeton[], int tailleTableau);
+    Noeud* creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
     Noeud* creerNoeud(Jeton *jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
     virtual ~ASyntaxique();
 private:
     Noeud *racine;
-    Erreur erreurs[];
+    std::vector<Erreur> erreurs;
 };
 
 #endif /* ASYNTAXIQUE_H */

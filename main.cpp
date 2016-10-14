@@ -17,10 +17,14 @@ int main(int argc, char *argv[])
     entree[5].lexeme = PARENT_CLOSE;
 
     ASyntaxique *aSyntax = new ASyntaxique();
+    aSyntax->checkSyntax(entree, 6);
     Noeud* n = aSyntax->creerNoeud(&entree[0]);
     Noeud* f = aSyntax->creerNoeud(&entree[1], n);
+    n->parent = f;
 
-    free(n);
-    free(f);
+
+    delete aSyntax;
+    delete n;
+    delete f;
     return 0;
 }
