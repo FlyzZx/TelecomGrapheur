@@ -9,7 +9,7 @@ public:
     ASyntaxique();
     void checkSyntax(std::vector<Jeton> jeton);
     Noeud* creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
-    Noeud* creerNoeud(Jeton *jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
+    Noeud* creerNoeud(Jeton jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
     virtual ~ASyntaxique();
 private:
     Noeud *racine;

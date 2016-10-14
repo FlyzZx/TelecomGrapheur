@@ -14,17 +14,19 @@ int main(int argc, char *argv[])
     entree.push_back(j);
     j.lexeme = VARIABLE;
     entree.push_back(j);
-
-    entree[3].lexeme = OPERATEUR;
-    entree[3].valeur.operateur = PLUS;
-    entree[4].lexeme = REEL;
-    entree[4].valeur.value = 2;
-    entree[5].lexeme = PARENT_CLOSE;
+    j.lexeme = OPERATEUR;
+    j.valeur.operateur = PLUS;
+    entree.push_back(j);
+    j.lexeme = REEL;
+    j.valeur.value = 2;
+    entree.push_back(j);
+    j.lexeme = PARENT_CLOSE;
+    entree.push_back(j);
 
     ASyntaxique *aSyntax = new ASyntaxique();
     aSyntax->checkSyntax(entree);
-    Noeud* n = aSyntax->creerNoeud(&entree[0]);
-    Noeud* f = aSyntax->creerNoeud(&entree[1], n);
+    Noeud* n = aSyntax->creerNoeud(entree[0]);
+    Noeud* f = aSyntax->creerNoeud(entree[1], n);
     n->parent = f;
 
 
