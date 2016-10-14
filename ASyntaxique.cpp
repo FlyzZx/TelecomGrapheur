@@ -17,13 +17,16 @@ void ASyntaxique::checkSyntax(Jeton jeton[], int tailleTableau) {
             if(jeton[i+1].lexeme != PARENT_OPEN) {
                 //ERREUR 202 : Pas de parenthèse après la fonction
                 Erreur err;
-                err.codeErreur = ERR201;
+                err.codeErreur = ERR202;
                 this->erreurs.push_back(err);
             }
             break;
         case OPERATEUR:
             if(jeton[i+1].lexeme == OPERATEUR) {
                 //ERREUR 203 : Double opérateur
+                Erreur err;
+                err.codeErreur = ERR203;
+                this->erreurs.push_back(err);
             }
             break;
         default:
@@ -31,12 +34,16 @@ void ASyntaxique::checkSyntax(Jeton jeton[], int tailleTableau) {
         }
         if(nbPO != nbPC) {
             //ERREUR 201 : Erreur parenthèse en moins ou en plus ou non fermée
+            Erreur err;
+            err.codeErreur = ERR201;
+            this->erreurs.push_back(err);
         }
 
         if((sizeof(this->erreurs) / sizeof(Erreur)) == 0) {
             //Appel de la construction de l'arbre
         } else {
             //Cas ou il y a des erreurs
+
         }
     }
 }
