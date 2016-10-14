@@ -46,12 +46,17 @@ void ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
         this->erreurs.push_back(err);
     }
 
-    if((sizeof(this->erreurs) / sizeof(Erreur)) == 0) {
+    if(erreurs.size() == 0) {
         //Appel de la construction de l'arbre
     } else {
         //Cas ou il y a des erreurs
 
     }
+}
+
+vector<Erreur> ASyntaxique::creerArbre(vector<Jeton> jeton, Noeud *parent) {
+
+    return this->erreurs;
 }
 
 
@@ -77,9 +82,4 @@ Noeud *ASyntaxique::getRacine(Noeud *n) {
         getRacine(n);
     }
     return n;
-}
-
-vector<Erreur> ASyntaxique::creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent) {
-
-    return this->erreurs;
 }

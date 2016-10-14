@@ -9,8 +9,8 @@ class ASyntaxique {
 public:
     ASyntaxique();
     void checkSyntax(vector<Jeton> jeton);
-    vector<Erreur> creerArbre(Jeton jeton[], int tailleTableau, Noeud *parent = NULL);
-    Noeud* creerNoeud(Jeton jeton, Noeud *fg = NULL, Noeud *fd = NULL, Noeud *parent = NULL);
+    vector<Erreur> creerArbre(vector<Jeton> jeton, Noeud *parent = 0);
+    Noeud* creerNoeud(Jeton jeton, Noeud *fg = 0, Noeud *fd = 0, Noeud *parent = 0);
     Noeud* getRacine(Noeud *n);
     virtual ~ASyntaxique();
 private:
