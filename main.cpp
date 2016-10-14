@@ -1,11 +1,9 @@
-#include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
-/*
- * Main de test pour la partie analyseur syntaxique
- */
-int main(int argc, char** argv) {
+int main(int argc, char *argv[])
+{
+    cout << "Hello World!" << endl;
     return 0;
 }
-
