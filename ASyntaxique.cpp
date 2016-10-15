@@ -48,7 +48,32 @@ vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     return this->erreurs;
 }
 
-Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, Noeud *parent) {
+Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeud *parent) {
+    Noeud* noeud = this->creerNoeud(jeton[indexBase]);
+    if(indexBase < jeton.size()) { //Condition de non récursivité
+        switch(jeton[indexBase].lexeme) {
+        case FUNCTION:
+            if(parent != 0 && parent->jeton.lexeme == OPERATEUR) { //Si le parent est un opérateur, le jeton_gauche est déja défini
+                parent->jeton_d = noeud;
+            }
+            creerArbre(jeton, indexBase + 1, noeud);
+            break;
+        case REEL || VARIABLE:
+            if(parent != 0 && parent->jeton.lexeme == OPERATEUR) { //Si le parent est un opérateur, le jeton_gauche est déjà défini
+                parent->jeton_d = noeud;
+            }
+            creerArbre(jeton, indexBase + 1, noeud);
+            break;
+        case OPERATEUR:
+            if(parent != 0 && (parent->jeton.lexeme == REEL || parent->jeton.lexeme == VARIABLE)) {
+
+            }
+            break;
+        default:
+             creerArbre(jeton, indexBase + 1);
+            break;
+        }
+    }
 
     return 0;
 }
@@ -71,4 +96,9 @@ Noeud* ASyntaxique::getRacine(Noeud *n) {
         getRacine(n);
     }
     return n;
+}
+
+ASyntaxique::~ASyntaxique()
+{
+
 }
