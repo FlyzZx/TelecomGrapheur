@@ -55,36 +55,43 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
         case FUNCTION:
             if(parent != 0 && parent->jeton.lexeme == OPERATEUR) { //Si le parent est un opérateur, le jeton_gauche est déja défini
                 parent->jeton_d = noeud;
+                noeud->parent = parent;
             }
             creerArbre(jeton, indexBase + 1, noeud);
             break;
-        case REEL || VARIABLE:
+        case (REEL || VARIABLE):
             if(parent != 0 && parent->jeton.lexeme == OPERATEUR) { //Si le parent est un opérateur, le jeton_gauche est déjà défini
                 parent->jeton_d = noeud;
+                noeud->parent = parent;
             }
             creerArbre(jeton, indexBase + 1, noeud);
             break;
         case OPERATEUR:
             if(parent != 0 && (parent->jeton.lexeme == REEL || parent->jeton.lexeme == VARIABLE)) {
-
+                Noeud* tmp = parent;
+                parent = noeud;
+                noeud = tmp;
+                parent->jeton_g = noeud;
+                noeud->parent = parent;
             }
+            creerArbre(jeton, indexBase + 1, noeud);
             break;
         default:
-             creerArbre(jeton, indexBase + 1);
+            creerArbre(jeton, indexBase + 1);
             break;
         }
     }
 
-    return 0;
+    return this->getRacine(noeud);
 }
 
 Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
     Noeud *noeud = (Noeud*)malloc(sizeof(Noeud));
-    if(fg != NULL) noeud->jeton_g = fg;
+    if(fg != 0) noeud->jeton_g = fg;
     else noeud->jeton_g = 0;
-    if(fd != NULL) noeud->jeton_d = fd;
+    if(fd != 0) noeud->jeton_d = fd;
     else noeud->jeton_d = 0;
-    if(parent != NULL) noeud->parent = parent;
+    if(parent != 0) noeud->parent = parent;
     else noeud->parent = 0;
     noeud->jeton = jeton;
     return noeud;

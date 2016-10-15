@@ -22,16 +22,15 @@ int main()
     entree.push_back(j);
     j.lexeme = PARENT_CLOSE;
     entree.push_back(j);
-
+    Noeud *arbre;
     ASyntaxique *aSyntax = new ASyntaxique();
-    aSyntax->checkSyntax(entree);
-    Noeud* n = aSyntax->creerNoeud(entree[0]);
-    Noeud* f = aSyntax->creerNoeud(entree[1], n);
-    n->parent = f;
+    if(aSyntax->checkSyntax(entree).size() == 0) {
+        arbre = aSyntax->creerArbre(entree);
+    }
+
 
 
     delete aSyntax;
-    delete n;
-    delete f;
+    delete arbre;
     return 0;
 }
