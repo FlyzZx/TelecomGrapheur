@@ -66,6 +66,7 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
                 Noeud* temp = parent;
                 parent = noeud;
                 parent->parent = temp->parent;
+                parent->parent->jeton_g = parent;
                 noeud = temp;
                 parent->jeton_g = noeud;
                 noeud->parent = parent;
