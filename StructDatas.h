@@ -34,10 +34,14 @@ typedef enum {
 typedef struct {
     CodeErreur codeErreur;
 <<<<<<< HEAD
+<<<<<<< HEAD
     char message[200];
 =======
 	char *message;
 >>>>>>> refs/remotes/origin/master
+=======
+    char *message;
+>>>>>>> origin/AnalyseurSyntaxique
 } Erreur;
 
 /* Partie 1 : Analyse Lexicale*/

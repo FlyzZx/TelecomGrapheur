@@ -224,6 +224,9 @@ pip-log.txt
 *.autosave
 =======
 *.user
+<<<<<<< HEAD
 /Debug/
 /Release/
+=======
+>>>>>>> origin/AnalyseurSyntaxique
 >>>>>>> refs/remotes/origin/master
