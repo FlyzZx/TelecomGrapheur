@@ -1,8 +1,8 @@
 /*
- * Structures de données communes
+ * Structures de donnÃ©es communes
  */
 
-/* Enumérations */
+/* EnumÃ©rations */
 typedef enum {
     FUNCTION, REEL, VARIABLE, OPERATEUR, PARENT_OPEN, PARENT_CLOSE
 } Lexeme;
@@ -49,12 +49,12 @@ typedef struct {
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
-struct Noeud {
+typedef struct Noeud {
     Jeton jeton;
     Noeud* jeton_g;
     Noeud* jeton_d;
     Noeud* parent;
-};
+} Noeud;
 
 /* Partie 3 : Evaluation */
 
