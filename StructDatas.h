@@ -1,8 +1,8 @@
 /*
- * Structures de données communes
+ * Structures de donnÃ©es communes
  */
 
-/* Enumérations */
+/* EnumÃ©rations */
 typedef enum {
     FUNCTION, REEL, VARIABLE, OPERATEUR, PARENT_OPEN, PARENT_CLOSE
 } Lexeme;
