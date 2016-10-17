@@ -111,7 +111,7 @@ Noeud* ASyntaxique::getRacine(Noeud *n) {
     return n;
 }
 
-int *ASyntaxique::getPriorite(vector<Jeton> jeton) {
+vector<Int> ASyntaxique::getPriorite(vector<Jeton> jeton) {
 
 }
 
