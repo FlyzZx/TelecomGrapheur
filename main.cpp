@@ -28,8 +28,6 @@ int main()
         arbre = aSyntax->creerArbre(entree);
     }
 
-
-
     delete aSyntax;
     delete arbre;
     return 0;
