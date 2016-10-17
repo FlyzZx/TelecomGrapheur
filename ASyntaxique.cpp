@@ -49,11 +49,10 @@ vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
 }
 
 Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeud *parent) {
+    Noeud* noeud = creerNoeud(jeton[indexBase]);
     if(indexBase < jeton.size()) { //Condition de sortie de récursivité
-        Noeud* noeud = creerNoeud(jeton[indexBase]);
-
         switch(jeton[indexBase].lexeme) {
-        case (REEL || VARIABLE):
+        case REEL : case VARIABLE:
             if(parent != 0) { //Si le parent est défini
                 noeud->parent = parent;
                 if(parent->jeton_g == 0) parent->jeton_g = noeud;
@@ -63,16 +62,30 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
             break;
 
         case OPERATEUR:
-
+            if(parent != 0 && (parent->jeton.lexeme == REEL || parent->jeton.lexeme == VARIABLE)) {
+                Noeud* temp = parent;
+                parent = noeud;
+                parent->parent = temp->parent;
+                noeud = temp;
+                parent->jeton_g = noeud;
+                noeud->parent = parent;
+            }
+            creerArbre(jeton,indexBase + 1, parent);
             break;
 
         case FUNCTION:
+            if(parent!=0){
+                noeud->parent = parent;
+            }
+            creerArbre(jeton,indexBase +1 , noeud);
             break;
 
         default:
+            creerArbre(jeton,indexBase +1, parent);
             break;
         }
     }
+    return this->getRacine(noeud);
 }
 
 Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
