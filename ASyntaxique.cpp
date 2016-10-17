@@ -52,7 +52,7 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
     Noeud* noeud = creerNoeud(jeton[indexBase]);
     if(indexBase < jeton.size()) { //Condition de sortie de récursivité
         switch(jeton[indexBase].lexeme) {
-        case REEL : case VARIABLE:
+        case REEL : case VARIABLE: //Reel ou variable
             if(parent != 0) { //Si le parent est défini
                 noeud->parent = parent;
                 if(parent->jeton_g == 0) parent->jeton_g = noeud;
@@ -63,10 +63,10 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
 
         case OPERATEUR:
             if(parent != 0 && (parent->jeton.lexeme == REEL || parent->jeton.lexeme == VARIABLE)) {
-                Noeud* temp = parent;
+                Noeud* temp = parent; //Inversion OPERATEUR et (REEL OU VARIABLE)
                 parent = noeud;
                 parent->parent = temp->parent;
-                parent->parent->jeton_g = parent;
+                if(temp->parent != 0) parent->parent->jeton_g = parent;
                 noeud = temp;
                 parent->jeton_g = noeud;
                 noeud->parent = parent;
@@ -77,6 +77,8 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
         case FUNCTION:
             if(parent!=0){
                 noeud->parent = parent;
+                if(parent->jeton_g == 0) parent->jeton_g = noeud;
+                else parent->jeton_d = noeud;
             }
             creerArbre(jeton,indexBase +1 , noeud);
             break;
