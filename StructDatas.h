@@ -17,16 +17,16 @@ typedef enum {
 
 typedef enum {
     ERR101 = 101,
-    ERR102 = 102, 
-    ERR103 = 103, 
-    ERR201 = 201, 
-    ERR202 = 202, 
-    ERR203 = 203, 
-    ERR301 = 301, 
-    ERR302 = 302, 
-    ERR303 = 303, 
-    ERR401 = 401, 
-    ERR402 = 402, 
+    ERR102 = 102,
+    ERR103 = 103,
+    ERR201 = 201,
+    ERR202 = 202,
+    ERR203 = 203,
+    ERR301 = 301,
+    ERR302 = 302,
+    ERR303 = 303,
+    ERR401 = 401,
+    ERR402 = 402,
     ERR403 = 403
 } CodeErreur;
 
@@ -49,12 +49,12 @@ typedef struct {
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
-struct Noeud {
+typedef struct Noeud {
     Jeton jeton;
     Noeud* jeton_g;
     Noeud* jeton_d;
     Noeud* parent;
-};
+} Noeud;
 
 /* Partie 3 : Evaluation */
 
