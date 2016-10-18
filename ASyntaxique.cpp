@@ -63,13 +63,31 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
 
         case OPERATEUR:
             if(parent != 0 && (parent->jeton.lexeme == REEL || parent->jeton.lexeme == VARIABLE)) {
-                Noeud* temp = parent; //Inversion OPERATEUR et (REEL OU VARIABLE)
-                parent = noeud;
-                parent->parent = temp->parent;
-                if(temp->parent != 0) parent->parent->jeton_g = parent;
-                noeud = temp;
-                parent->jeton_g = noeud;
-                noeud->parent = parent;
+                if(parent->parent !=0 && (parent->parent->jeton.priorite > noeud->jeton.priorite )){
+                    Noeud* temp = getNoeudWithLowerPriority(parent , noeud->jeton.priorite);
+                    if(temp->parent !=0){
+                        noeud->parent = temp->parent;
+                        if(noeud->parent->jeton_g == temp){
+                            noeud->parent->jeton_g = noeud;
+                        }
+                        else{
+                            noeud->parent->jeton_d = noeud;
+                        }
+                    }
+                    noeud->jeton_g = temp;
+                    temp->parent = noeud;
+
+                    parent = noeud; //Pour la recursivite
+                }
+                else {
+                    Noeud* temp = parent; //Inversion OPERATEUR et (REEL OU VARIABLE)
+                    parent = noeud;
+                    parent->parent = temp->parent;
+                    if(temp->parent != 0) parent->parent->jeton_g = parent;
+                    noeud = temp;
+                    parent->jeton_g = noeud;
+                    noeud->parent = parent;
+                }
             }
             creerArbre(jeton,indexBase + 1, parent);
             break;
@@ -111,34 +129,45 @@ Noeud* ASyntaxique::getRacine(Noeud *n) {
     return n;
 }
 
+Noeud *ASyntaxique::getNoeudWithLowerPriority(Noeud *n, int priority) {
+    while(n->parent != 0 && (priority < n->parent->jeton.priorite)) {
+        n = n->parent;
+        getNoeudWithLowerPriority(n,priority);
+    }
+    return n;
+}
+
 vector<Jeton> ASyntaxique::setPriorite(vector<Jeton> jeton) {
     unsigned int prio =0;
-    for(int i =0;i<jeton.size();i++){
+    for(unsigned int i =0;i<jeton.size();i++){
         switch(jeton[i].lexeme){
         case PARENT_OPEN :
             prio = prio + 10;
             break;
+
          case PARENT_CLOSE :
             prio = prio - 10;
             break;
+
          case OPERATEUR :
             switch(jeton[i].valeur.operateur){
             case MULT : case DIV :
-                 jeton[i].priorite = prio + 1 ;
-            break;
+                jeton[i].priorite = prio + 1 ;
+                break;
             default :
-            break;
+                jeton[i].priorite = prio;
+                break;
             }
+            break;
+
+         case FUNCTION :
+            jeton[i].priorite = prio + 2;
+            break;
+
          default :
-         break;
+            jeton[i].priorite = prio;
+            break;
         }
-         jeton[i].priorite = prio;
     }
-
     return jeton;
-}
-
-ASyntaxique::~ASyntaxique()
-{
-
 }

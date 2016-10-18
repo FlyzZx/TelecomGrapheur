@@ -23,17 +23,17 @@ int main()
     j.lexeme = PARENT_CLOSE;
     entree.push_back(j);
     j.lexeme = OPERATEUR;
-    j.valeur.operateur = PLUS;
+    j.valeur.operateur = MULT;
     entree.push_back(j);
     j.lexeme = REEL;
-    j.valeur.value = 3;
+    j.valeur.value = 6;
     entree.push_back(j);
 
     Noeud *arbre;
     ASyntaxique *aSyntax = new ASyntaxique();
     if(aSyntax->checkSyntax(entree).size() == 0) {
-        //arbre = aSyntax->creerArbre(entree);
         entree = aSyntax->setPriorite(entree);
+        arbre = aSyntax->creerArbre(entree);
     }
 
     delete aSyntax;

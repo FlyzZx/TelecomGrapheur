@@ -9,12 +9,12 @@ class ASyntaxique {
 public:
     ASyntaxique();
     vector<Erreur> checkSyntax(vector<Jeton> jeton);
-    Noeud* creerArbre(vector<Jeton> jeton, unsigned int indexBase = 0, Noeud *parent = 0);
+    Noeud* creerArbre(vector<Jeton> jeton, unsigned int indexBase = 0, Noeud *parent = 0);  
+    vector<Jeton> setPriorite(vector<Jeton> jeton);
+private:
     Noeud* creerNoeud(Jeton jeton, Noeud *fg = 0, Noeud *fd = 0, Noeud *parent = 0);
     Noeud* getRacine(Noeud *n);
-    vector<Jeton> setPriorite(vector<Jeton> jeton);
-    virtual ~ASyntaxique();
-private:
+    Noeud* getNoeudWithLowerPriority(Noeud *n, int priority);
     vector<Erreur> erreurs;
 };
 
