@@ -1,17 +1,48 @@
 #include <iostream>
 #include "StructDatas.h"
 #include <cstdlib>
+#include <math.h>
 
 using namespace std;
 Jeton J;
+Noeud* N = (Noeud*)malloc(sizeof(Noeud));//allocation mémoire noeud
+/*N->jeton_g=(Noeud*)malloc(sizeof(Noeud));
+N->jeton_d=(Noeud*)malloc(sizeof(Noeud));
+N->parent=(Noeud*)malloc(sizeof(Noeud));*/
+
+void lexemeParent (Noeud *Lexeme){ //place "Noeud->parent->jeton.lexeme" et renvoie
+
+}
+
+float operation(float val1, float val2, Jeton *Operateur){//N->parent->jeton.valeur.operateur
+     switch (N->parent->jeton.valeur.operateur){
+         case PLUS:
+             return val1+val2;
+             break;
+        case MOINS:
+            return val1+val2;
+            break;
+        case MULT:
+            return val1*val2;
+            break;
+        case DIV:
+            return val1/val2;
+            break;
+        default:
+            return 1;
+            }
+
+}
+
+
 
 int main()
 {
     float x1,x2;
-    Noeud* N = (Noeud*)malloc(sizeof(Noeud));//allocation mémoire noeud
+   /* Noeud* N = (Noeud*)malloc(sizeof(Noeud));//allocation mémoire noeud
     N->jeton_g=(Noeud*)malloc(sizeof(Noeud));
     N->jeton_d=(Noeud*)malloc(sizeof(Noeud));
-    N->parent=(Noeud*)malloc(sizeof(Noeud));
+    N->parent=(Noeud*)malloc(sizeof(Noeud));*/
 
     N->jeton_g->jeton.lexeme = VARIABLE;
     //N->jeton.lexeme= OPERATEUR;
@@ -19,7 +50,10 @@ int main()
     N->parent->jeton.lexeme =FUNCTION;
     N->parent->jeton_d->jeton.lexeme= FUNCTION;
 
-    cout << "b1:"<<N->jeton_g->jeton.lexeme<<"\n"<<endl;
+
+    operation(5.0, 4.0, PLUS);
+
+   /* cout << "b1:"<<N->jeton_g->jeton.lexeme<<"\n"<<endl;
     cout << "b2: reel" << endl;
     //cout << "N->jeton.lexem:" <<N->jeton.lexeme << endl;
 
@@ -35,29 +69,15 @@ int main()
         x1= N->jeton_d->jeton.valeur.value;
         x2= N->jeton_g->jeton.valeur.value;
     }
-    switch (N->parent->jeton->valeur.fonction){
+   /* switch (N->parent->jeton.valeur.fonction){
     case SIN:
-        return sin(x1+x2)
+        return sin(x3);
         break;
     case COS:
-        return cos()}
+        return cos(x3);
+        break;} */
     /* gestion opérateur parent */
-    switch (N->parent->jeton.valeur.operateur){
-        case PLUS:
-            return x1 + x2;
-            break;
-        case MOINS:
-            return x1 + x2;
-            break;
-        case MULT:
-            return x1 * x2;
-            break;
-        case DIV:
-            return X1 / x2;
-            break;
-        default:
-            }
-    }
+
 
 
 
