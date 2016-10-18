@@ -46,6 +46,7 @@ typedef union {
 typedef struct {
     Lexeme lexeme;
     Valeur valeur;
+    int priorite;
 } Jeton;
 
 /* Partie 2 : Analyse Syntaxique */
