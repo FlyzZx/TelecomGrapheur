@@ -7,35 +7,53 @@ Jeton J;
 
 int main()
 {
-    J.lexeme=FUNCTION;
-    J.valeur.fonction=COS;
-    Noeud* N = (Noeud*)malloc(sizeof(Noeud));
-   // N.jeton.lexeme = VARIABLE;
-   N->jeton_g->jeton=J;
-
+    float x1,x2;
+    Noeud* N = (Noeud*)malloc(sizeof(Noeud));//allocation mémoire noeud
+    N->jeton_g=(Noeud*)malloc(sizeof(Noeud));
+    N->jeton_d=(Noeud*)malloc(sizeof(Noeud));
+    N->parent=(Noeud*)malloc(sizeof(Noeud));
 
     N->jeton_g->jeton.lexeme = VARIABLE;
+    //N->jeton.lexeme= OPERATEUR;
+    N->jeton_d->jeton.valeur.value=5.0;
+    N->parent->jeton.lexeme =FUNCTION;
+
+    cout << "b1:"<<N->jeton_g->jeton.lexeme<<"\n"<<endl;
+    cout << "b2: reel" << endl;
+    //cout << "N->jeton.lexem:" <<N->jeton.lexeme << endl;
+
+    while ((N->parent->jeton.lexeme == FUNCTION) || (N->parent->jeton.lexeme == OPERATEUR)){
+        cout << "Parent lexeme : "<<N->parent->jeton.lexeme << endl;
+        //N->parent->jeton.lexeme = N->jeton_g->jeton.lexeme;
+        N->N->parent->jeton_d->jeton.lexeme
+        //N->jeton_g->jeton.lexeme = REEL;
+    }
 
 
 
-   std::cout <<"beuh"<<std::endl;
+    switch(N->parent->jeton.lexeme){
 
-   /* while ((N.jeton_g->jeton.lexeme == 2)){
-        cout << "fsef" << endl;
-        N.jeton_g->jeton.lexeme = REEL;
-    }*/
-
-    /*switch(Noeud->jeton.lexeme){
-    case REEL:VARIABLE:FUNCTION:
-        return Noeud->jeton.valeur;
+    case REEL: VARIABLE:
+        cout << "b3" << endl;
+        return N->jeton.valeur.value;
         break;
+
+    case FUNCTION:
+        cout << "b4" << endl;
+        return N->jeton.valeur.fonction;
+        break;
+
+
     case OPERATEUR:
-        float x1= Noeud->jeton_g;
-        float x2 = Noeud->jeton_d;
+        cout << "b5" << endl;
+         x1 = N->jeton_g->jeton.valeur.value;
+         x2 = N->jeton_d->jeton.valeur.value;
+         cout << "valeurX1:" <<x1 <<"\n"<< endl;
+         cout << "valeurX2:" <<x2 << endl;
         break;
+        }
 
 
-        }*/
 
     /*if (N.jeton.lexeme !=2){
         cout << "Valeur:" <<N.jeton.lexeme << endl;
