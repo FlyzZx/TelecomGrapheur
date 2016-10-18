@@ -8,6 +8,7 @@
 //============================================================================
 #include <iostream>
 #include "StructDatas.h"
+#include <string>
 using namespace std;
 string mainString="2+2";
 
@@ -71,8 +72,11 @@ string* toLexeme(string chaine){
 				i++;
 				cara=chaine[i];
 			}
-			//TODO Verifier que la fonction existe bien
-			return "FUNCTION";
+			if (chainePro:stricmp('sin')==0 || chainePro:stricmp('cos')==0 || chainePro:stricmp('tan')==0 || chainePro:stricmp('sqrt')==0 || chainePro:stricmp('log')==0 || chainePro:stricmp('ln')==0){
+				return "FUNCTION";
+			}else{
+				//TODO retourner code erreur référent à fonction non reconnus
+			}
 		}else if (isNumber(cara)){
 			bool verif=false;
 			bool verif2=false;
