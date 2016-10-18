@@ -7,14 +7,11 @@
 // TODO: Ajout du traitement des décimaux
 //============================================================================
 #include <iostream>
-#include "StructDatas.h"
+#include "../StructDatas.h"
 #include <string>
+#include <vector>
 using namespace std;
-string mainString="2+2";
-
-int main() {
-	//TODO
-}
+string mainString="(2x+2)";
 
 bool isFunction(char cara){
 	if ((cara>'A' && cara<'Z' && cara!='X') || (cara>'a' && cara<'z' && cara!='x')){
@@ -58,10 +55,11 @@ bool isParenthesisClosing(char cara){
 	return false;
 }
 
-string* toLexeme(string chaine){
+vector<string> toLexeme(string chaine){
+	vector<string> res;
 	char cara;
 	int i=0;
-	while (i<chaine.length){
+	while (i<(int)sizeof(chaine)){
 		cara=chaine[i];
 		if (isFunction(cara)){
 			string chainePro=cara+"";
@@ -72,9 +70,10 @@ string* toLexeme(string chaine){
 				i++;
 				cara=chaine[i];
 			}
-			if (chainePro:stricmp('sin')==0 || chainePro:stricmp('cos')==0 || chainePro:stricmp('tan')==0 || chainePro:stricmp('sqrt')==0 || chainePro:stricmp('log')==0 || chainePro:stricmp('ln')==0){
-				return "FUNCTION";
-			}else{
+
+			if ( chainePro.compare("sin") == 0 ) {
+
+					res.push_back("FUNCTION");
 				//TODO retourner code erreur référent à fonction non reconnus
 			}
 		}else if (isNumber(cara)){
@@ -95,20 +94,29 @@ string* toLexeme(string chaine){
 			if (verif2==true){
 				//TODO retourner code erreur référent à virgule de fin
 			}else{
-				return "REEL";
+				res.push_back("REEL");
 				i--;
 			}
 		}else if (isVar(cara)){
-			return "VARIABLE";
+			res.push_back("VARIABLE");
 		}else if (isOperator(cara)){
-			return "OPERATEUR";
+			res.push_back("OPERATEUR");
 		}else if (isParenthesisOpens(cara)){
-			return "PARENT_OPEN";
+			res.push_back("PARENT_OPEN");
 		}else if (isParenthesisClosing(cara)){
-			return "PARENT_CLOSE";
+			res.push_back("PARENT_CLOSE");
 		}else{
 		// TODO retourner une erreur référent à un caractère inconnus dans l'operation
 		}
 		i++;
 	}
+	return res;
+}
+
+int main(){
+	vector<string> resultat=toLexeme(mainString);
+	for (int i=0;i<resultat.size();i++){
+		cout << (resultat.at(i));
+	}
+	return 0;
 }
