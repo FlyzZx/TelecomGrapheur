@@ -17,21 +17,54 @@ int main()
     //N->jeton.lexeme= OPERATEUR;
     N->jeton_d->jeton.valeur.value=5.0;
     N->parent->jeton.lexeme =FUNCTION;
+    N->parent->jeton_d->jeton.lexeme= FUNCTION;
 
     cout << "b1:"<<N->jeton_g->jeton.lexeme<<"\n"<<endl;
     cout << "b2: reel" << endl;
     //cout << "N->jeton.lexem:" <<N->jeton.lexeme << endl;
 
     while ((N->parent->jeton.lexeme == FUNCTION) || (N->parent->jeton.lexeme == OPERATEUR)){
-        cout << "Parent lexeme : "<<N->parent->jeton.lexeme << endl;
+        cout << "Parent lexeme : "<< N->parent->jeton.lexeme << endl;
         //N->parent->jeton.lexeme = N->jeton_g->jeton.lexeme;
-        N->N->parent->jeton_d->jeton.lexeme
+        N->parent->jeton.lexeme=N->parent->jeton_d->jeton.lexeme;
         //N->jeton_g->jeton.lexeme = REEL;
+
+
+
+  if (N->parent->jeton.lexeme == REEL || N->parent->jeton.lexeme == VARIABLE){
+        x1= N->jeton_d->jeton.valeur.value;
+        x2= N->jeton_g->jeton.valeur.value;
+    }
+    switch (N->parent->jeton->valeur.fonction){
+    case SIN:
+        return sin(x1+x2)
+        break;
+    case COS:
+        return cos()}
+    /* gestion opérateur parent */
+    switch (N->parent->jeton.valeur.operateur){
+        case PLUS:
+            return x1 + x2;
+            break;
+        case MOINS:
+            return x1 + x2;
+            break;
+        case MULT:
+            return x1 * x2;
+            break;
+        case DIV:
+            return X1 / x2;
+            break;
+        default:
+            }
     }
 
 
 
-    switch(N->parent->jeton.lexeme){
+
+
+
+  /*  switch(N->parent->jeton.lexeme){
 
     case REEL: VARIABLE:
         cout << "b3" << endl;
@@ -51,7 +84,7 @@ int main()
          cout << "valeurX1:" <<x1 <<"\n"<< endl;
          cout << "valeurX2:" <<x2 << endl;
         break;
-        }
+        }*/
 
 
 
