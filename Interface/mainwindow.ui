@@ -53,11 +53,6 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <zorder>gridLayoutWidget</zorder>
-         <zorder>frame</zorder>
-         <zorder>frame</zorder>
-         <zorder>frame</zorder>
-         <zorder>frame</zorder>
         </widget>
        </item>
       </layout>
@@ -85,7 +80,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="expression">
            <property name="maximumSize">
             <size>
              <width>700</width>
@@ -98,7 +93,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="valider">
            <property name="text">
             <string>Valider</string>
            </property>
@@ -125,7 +120,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_2">
+          <widget class="QSpinBox" name="xMin">
            <property name="maximumSize">
             <size>
              <width>50</width>
@@ -154,7 +149,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="xMax">
            <property name="minimumSize">
             <size>
              <width>50</width>
@@ -189,7 +184,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_4">
+          <widget class="QSpinBox" name="yMin">
            <property name="maximumSize">
             <size>
              <width>50</width>
@@ -212,7 +207,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox_3">
+          <widget class="QSpinBox" name="yMax">
            <property name="maximumSize">
             <size>
              <width>50</width>

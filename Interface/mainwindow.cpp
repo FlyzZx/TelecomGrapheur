@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <iostream>
+#include <stdio.h>
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
@@ -27,10 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->customPlot->legend->setSelectedFont(legendFont);
   ui->customPlot->legend->setSelectableParts(QCPLegend::spItems); // legend box shall not be selectable, only legend items
   
-  addRandomGraph();
-  addRandomGraph();
-  addRandomGraph();
-  addRandomGraph();
+
+  float  tab[11][2]={{-5,3},{-4,5},{-3,7},{-2,3},{-1,5},{0,7},{1,3},{2,5},{3,7},{4,3},{5,5}};
+
+  addRandomGraph(tab);
+
   ui->customPlot->rescaleAxes();
   
   // connect slot that ties some axis selections together (especially opposite axes):
@@ -178,23 +181,33 @@ void MainWindow::mouseWheel()
     ui->customPlot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
 }
 
-void MainWindow::addRandomGraph()
+
+
+
+void MainWindow::addRandomGraph(float tab[][2])
 {
-  int n = 50; // number of points in graph
-  double xScale = (rand()/(double)RAND_MAX + 0.5)*2;
-  double yScale = (rand()/(double)RAND_MAX + 0.5)*2;
-  double xOffset = (rand()/(double)RAND_MAX - 0.5)*4;
-  double yOffset = (rand()/(double)RAND_MAX - 0.5)*10;
-  double r1 = (rand()/(double)RAND_MAX - 0.5)*2;
-  double r2 = (rand()/(double)RAND_MAX - 0.5)*2;
-  double r3 = (rand()/(double)RAND_MAX - 0.5)*2;
-  double r4 = (rand()/(double)RAND_MAX - 0.5)*2;
-  QVector<double> x(n), y(n);
-  for (int i=0; i<n; i++)
+    int a = 0;
+  int n = 11; // number of points in graph
+  int taille=sizeof(tab[0])/sizeof(*tab);
+
+
+
+
+
+
+  QVector<double> x(taille);
+  QVector<double> y(taille);
+
+  for (int i=0; i<11; i++)
   {
-    x[i] = (i/(double)n-0.5)*10.0*xScale + xOffset;
-    y[i] = (qSin(x[i]*r1*5)*qSin(qCos(x[i]*r2)*r4*3)+r3*qCos(qSin(x[i])*r4*2))*yScale + yOffset;
+    x[i] = tab[i][0];
+    y[i] = tab[i][1];
   }
+
+
+
+
+
   
   ui->customPlot->addGraph();
   ui->customPlot->graph()->setName(QString("New graph %1").arg(ui->customPlot->graphCount()-1));
