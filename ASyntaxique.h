@@ -12,7 +12,7 @@ public:
     Noeud* creerArbre(vector<Jeton> jeton, unsigned int indexBase = 0, Noeud *parent = 0);
     Noeud* creerNoeud(Jeton jeton, Noeud *fg = 0, Noeud *fd = 0, Noeud *parent = 0);
     Noeud* getRacine(Noeud *n);
-    vector<int> getPriorite(vector<Jeton> jeton);
+    vector<Jeton> setPriorite(vector<Jeton> jeton);
     virtual ~ASyntaxique();
 private:
     vector<Erreur> erreurs;

@@ -111,8 +111,31 @@ Noeud* ASyntaxique::getRacine(Noeud *n) {
     return n;
 }
 
-vector<int> ASyntaxique::getPriorite(vector<Jeton> jeton) {
+vector<Jeton> ASyntaxique::setPriorite(vector<Jeton> jeton) {
+    unsigned int prio =0;
+    for(int i =0;i<jeton.size();i++){
+        switch(jeton[i].lexeme){
+        case PARENT_OPEN :
+            prio = prio + 10;
+            break;
+         case PARENT_CLOSE :
+            prio = prio - 10;
+            break;
+         case OPERATEUR :
+            switch(jeton[i].valeur.operateur){
+            case MULT : case DIV :
+                 jeton[i].priorite = prio + 1 ;
+            break;
+            default :
+            break;
+            }
+         default :
+         break;
+        }
+         jeton[i].priorite = prio;
+    }
 
+    return jeton;
 }
 
 ASyntaxique::~ASyntaxique()

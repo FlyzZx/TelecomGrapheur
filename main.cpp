@@ -32,7 +32,8 @@ int main()
     Noeud *arbre;
     ASyntaxique *aSyntax = new ASyntaxique();
     if(aSyntax->checkSyntax(entree).size() == 0) {
-        arbre = aSyntax->creerArbre(entree);
+        //arbre = aSyntax->creerArbre(entree);
+        entree = aSyntax->setPriorite(entree);
     }
 
     delete aSyntax;
