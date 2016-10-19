@@ -24,14 +24,24 @@ private slots:
   void selectionChanged();
   void mousePress();
   void mouseWheel();
-  void addRandomGraph(float tab[][2]);
+  void chargeGraph();
   void removeSelectedGraph();
   void removeAllGraphs();
   void contextMenuRequest(QPoint pos);
   void moveLegend();
+  float calcul(float x);
   void graphClicked(QCPAbstractPlottable *plottable, int dataIndex);
+  void afficheErreur(char *tmp);
 
-  
+
+  void on_valider_clicked();
+
+  void on_Nettoyer_clicked();
+
+
+
+  void on_pushButton_clicked();
+
 private:
   Ui::MainWindow *ui;
 };

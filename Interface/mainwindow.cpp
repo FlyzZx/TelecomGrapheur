@@ -17,11 +17,11 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->customPlot->axisRect()->setupFullAxesBox();
   
   ui->customPlot->plotLayout()->insertRow(0);
-  QCPTextElement *title = new QCPTextElement(ui->customPlot, "Interaction Example", QFont("sans", 17, QFont::Bold));
+  QCPTextElement *title = new QCPTextElement(ui->customPlot, "Télécom Grapheur", QFont("sans", 17, QFont::Bold));
   ui->customPlot->plotLayout()->addElement(0, 0, title);
   
-  ui->customPlot->xAxis->setLabel("x Axis");
-  ui->customPlot->yAxis->setLabel("y Axis");
+  ui->customPlot->xAxis->setLabel("Axe X");
+  ui->customPlot->yAxis->setLabel("Axe Y");
   ui->customPlot->legend->setVisible(true);
   QFont legendFont = font();
   legendFont.setPointSize(10);
@@ -29,10 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->customPlot->legend->setSelectedFont(legendFont);
   ui->customPlot->legend->setSelectableParts(QCPLegend::spItems); // legend box shall not be selectable, only legend items
   
+  //initialisation erreur
+  ui->erreurMessage->setVisible(false);
+  ui->pushButton->setVisible(false);
 
-  float  tab[11][2]={{-5,3},{-4,5},{-3,7},{-2,3},{-1,5},{0,7},{1,3},{2,5},{3,7},{4,3},{5,5}};
-
-  addRandomGraph(tab);
 
   ui->customPlot->rescaleAxes();
   
@@ -93,6 +93,14 @@ void MainWindow::axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart par
       ui->customPlot->replot();
     }
   }
+}
+
+void MainWindow::afficheErreur(char *tmp){
+
+    ui->erreurMessage->setText(tmp);
+    ui->erreurMessage->setStyleSheet("QLabel {  color : red;}");
+    ui->erreurMessage->setVisible(true);
+    ui->pushButton->setVisible(true);
 }
 
 void MainWindow::legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item)
@@ -159,8 +167,7 @@ void MainWindow::mousePress()
 {
   // if an axis is selected, only allow the direction of that axis to be dragged
   // if no axis is selected, both directions may be dragged
-  
-  if (ui->customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+if (ui->customPlot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
     ui->customPlot->axisRect()->setRangeDrag(ui->customPlot->xAxis->orientation());
   else if (ui->customPlot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
     ui->customPlot->axisRect()->setRangeDrag(ui->customPlot->yAxis->orientation());
@@ -181,40 +188,56 @@ void MainWindow::mouseWheel()
     ui->customPlot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
 }
 
+float MainWindow::calcul(float x){
+    return x*x;
+}
 
-
-
-void MainWindow::addRandomGraph(float tab[][2])
+void MainWindow::chargeGraph()
 {
-    int a = 0;
-  int n = 11; // number of points in graph
-  int taille=sizeof(tab[0])/sizeof(*tab);
+  //Bornes min max
+  double xmin = ui->xMin->value();
+  double xmax = ui->xMax->value();
+  double ymin = ui->yMin->value();
+  double ymax = ui->yMax->value();
 
-
-
-
-
-
-  QVector<double> x(taille);
-  QVector<double> y(taille);
-
-  for (int i=0; i<11; i++)
-  {
-    x[i] = tab[i][0];
-    y[i] = tab[i][1];
+  if(xmin>=xmax){
+      afficheErreur("Vérifier vos bornes");
+      return;
+  }
+  if(ymin>=ymax){
+      afficheErreur("Vérifier vos bornes");
+      return;
   }
 
+  ui->customPlot->xAxis->setRange(xmin-1, xmax+1);
+  ui->customPlot->yAxis->setRange(ymin-1, ymax+1);
+
+  float precision = ui->precision->value();
+
+  float taille = (xmax-xmin)/precision;
 
 
 
+  QVector<double> x((int)taille+1);
+  QVector<double> y((int)taille+1);
 
-  
+  int k=0;
+  for (float i=xmin; i<xmax+1; i+=precision)
+  {
+    x[k] = i;
+    y[k] = calcul(i);
+    k++;
+  }
   ui->customPlot->addGraph();
-  ui->customPlot->graph()->setName(QString("New graph %1").arg(ui->customPlot->graphCount()-1));
+  ui->customPlot->graph()->setName(QString("=Y%1").arg(ui->customPlot->graphCount()-1));
   ui->customPlot->graph()->setData(x, y);
-  ui->customPlot->graph()->setLineStyle((QCPGraph::LineStyle)(rand()%5+1));
-  if (rand()%100 > 50)
-    ui->customPlot->graph()->setScatterStyle(QCPScatterStyle((QCPScatterStyle::ScatterShape)(rand()%14+1)));
+
+  //style du graphique
+  ui->customPlot->graph()->setLineStyle((QCPGraph::LineStyle)(1));
+  //if (rand()%100 > 50)
+
+  //style du point
+    ui->customPlot->graph()->setScatterStyle(QCPScatterStyle((QCPScatterStyle::ScatterShape)(1)));
   QPen graphPen;
   graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
   graphPen.setWidthF(rand()/(double)RAND_MAX*2+1);
@@ -251,7 +274,6 @@ void MainWindow::contextMenuRequest(QPoint pos)
     menu->addAction("Move to bottom left", this, SLOT(moveLegend()))->setData((int)(Qt::AlignBottom|Qt::AlignLeft));
   } else  // general context menu on graphs requested
   {
-    menu->addAction("Add random graph", this, SLOT(addRandomGraph()));
     if (ui->customPlot->selectedGraphs().size() > 0)
       menu->addAction("Remove selected graph", this, SLOT(removeSelectedGraph()));
     if (ui->customPlot->graphCount() > 0)
@@ -284,6 +306,20 @@ void MainWindow::graphClicked(QCPAbstractPlottable *plottable, int dataIndex)
   ui->statusBar->showMessage(message, 2500);
 }
 
+void MainWindow::on_valider_clicked()
+{
 
+    chargeGraph();
+}
 
+void MainWindow::on_Nettoyer_clicked()
+{
+    removeAllGraphs();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->erreurMessage->setVisible(false);
+    ui->pushButton->setVisible(false);
+}
 

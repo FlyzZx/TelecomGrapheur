@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -36,6 +37,9 @@ public:
     QAction *actionGreger;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *hLayout;
+    QLabel *erreurMessage;
+    QPushButton *pushButton;
     QFrame *frame_2;
     QVBoxLayout *verticalLayout_3;
     QCustomPlot *customPlot;
@@ -44,7 +48,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLineEdit *expression;
-    QPushButton *valider;
+    QDoubleSpinBox *precision;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QSpinBox *xMin;
@@ -54,6 +58,10 @@ public:
     QSpinBox *yMin;
     QLabel *label_4;
     QSpinBox *yMax;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *Nettoyer;
+    QPushButton *valider;
+    QHBoxLayout *horizontalLayout_4;
     QStatusBar *statusBar;
     QToolBar *toolBar;
 
@@ -72,6 +80,95 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        hLayout = new QHBoxLayout();
+        hLayout->setSpacing(6);
+        hLayout->setObjectName(QStringLiteral("hLayout"));
+        hLayout->setContentsMargins(-1, 17, -1, -1);
+        erreurMessage = new QLabel(centralWidget);
+        erreurMessage->setObjectName(QStringLiteral("erreurMessage"));
+        QPalette palette;
+        QBrush brush(QColor(0, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        QBrush brush1(QColor(233, 28, 6, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Button, brush1);
+        QBrush brush2(QColor(255, 116, 101, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Light, brush2);
+        QBrush brush3(QColor(244, 72, 53, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Midlight, brush3);
+        QBrush brush4(QColor(116, 14, 3, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Dark, brush4);
+        QBrush brush5(QColor(155, 18, 4, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        QBrush brush6(QColor(255, 255, 255, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush6);
+        palette.setBrush(QPalette::Active, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Active, QPalette::Shadow, brush);
+        QBrush brush7(QColor(244, 141, 130, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush7);
+        QBrush brush8(QColor(255, 255, 220, 255));
+        brush8.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::ToolTipBase, brush8);
+        palette.setBrush(QPalette::Active, QPalette::ToolTipText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
+        palette.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush6);
+        palette.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush7);
+        palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush8);
+        palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
+        palette.setBrush(QPalette::Disabled, QPalette::Dark, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush8);
+        palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
+        erreurMessage->setPalette(palette);
+        QFont font;
+        font.setFamily(QStringLiteral("Arial"));
+        font.setPointSize(18);
+        font.setBold(true);
+        font.setWeight(75);
+        erreurMessage->setFont(font);
+
+        hLayout->addWidget(erreurMessage, 0, Qt::AlignHCenter);
+
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setMaximumSize(QSize(100, 16777215));
+
+        hLayout->addWidget(pushButton, 0, Qt::AlignHCenter);
+
+
+        verticalLayout->addLayout(hLayout);
+
         frame_2 = new QFrame(centralWidget);
         frame_2->setObjectName(QStringLiteral("frame_2"));
         frame_2->setFrameShape(QFrame::StyledPanel);
@@ -119,10 +216,12 @@ public:
 
         horizontalLayout->addWidget(expression);
 
-        valider = new QPushButton(frame);
-        valider->setObjectName(QStringLiteral("valider"));
+        precision = new QDoubleSpinBox(frame);
+        precision->setObjectName(QStringLiteral("precision"));
+        precision->setMinimum(0.01);
+        precision->setValue(1);
 
-        horizontalLayout->addWidget(valider);
+        horizontalLayout->addWidget(precision);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
@@ -142,6 +241,7 @@ public:
         xMin->setMaximumSize(QSize(50, 16777215));
         xMin->setMinimum(-1000);
         xMin->setMaximum(1000);
+        xMin->setValue(-5);
 
         horizontalLayout_3->addWidget(xMin);
 
@@ -157,6 +257,7 @@ public:
         xMax->setMaximumSize(QSize(50, 50));
         xMax->setMinimum(-1000);
         xMax->setMaximum(1000);
+        xMax->setValue(5);
 
         horizontalLayout_3->addWidget(xMax);
 
@@ -169,6 +270,9 @@ public:
         yMin = new QSpinBox(frame);
         yMin->setObjectName(QStringLiteral("yMin"));
         yMin->setMaximumSize(QSize(50, 50));
+        yMin->setMinimum(-1000);
+        yMin->setMaximum(1000);
+        yMin->setValue(-10);
 
         horizontalLayout_3->addWidget(yMin);
 
@@ -181,14 +285,39 @@ public:
         yMax = new QSpinBox(frame);
         yMax->setObjectName(QStringLiteral("yMax"));
         yMax->setMaximumSize(QSize(50, 16777215));
+        yMax->setValue(10);
 
         horizontalLayout_3->addWidget(yMax);
 
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(-1, 14, -1, -1);
+        Nettoyer = new QPushButton(frame);
+        Nettoyer->setObjectName(QStringLiteral("Nettoyer"));
+
+        horizontalLayout_2->addWidget(Nettoyer);
+
+        valider = new QPushButton(frame);
+        valider->setObjectName(QStringLiteral("valider"));
+
+        horizontalLayout_2->addWidget(valider);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
 
         verticalLayout->addWidget(frame);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(-1, 23, -1, -1);
+
+        verticalLayout->addLayout(horizontalLayout_4);
 
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
@@ -208,13 +337,16 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "QCustomPlot Interaction Example", 0));
         actionCr_cr->setText(QApplication::translate("MainWindow", "cr\"cr", 0));
         actionGreger->setText(QApplication::translate("MainWindow", "greger", 0));
+        erreurMessage->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#f9372f;\">TextLabel</span></p></body></html>", 0));
+        pushButton->setText(QApplication::translate("MainWindow", "OK", 0));
         label->setText(QApplication::translate("MainWindow", "Y =", 0));
         expression->setText(QString());
-        valider->setText(QApplication::translate("MainWindow", "Valider", 0));
         label_3->setText(QApplication::translate("MainWindow", "Min x =", 0));
         label_2->setText(QApplication::translate("MainWindow", "Max x =", 0));
         label_5->setText(QApplication::translate("MainWindow", "Min y =", 0));
         label_4->setText(QApplication::translate("MainWindow", "Max y =", 0));
+        Nettoyer->setText(QApplication::translate("MainWindow", "Nettoyer le graphique", 0));
+        valider->setText(QApplication::translate("MainWindow", "Valider", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 
