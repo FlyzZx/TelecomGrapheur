@@ -80,13 +80,16 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
                     parent = noeud; //Pour la recursivite
                 }
                 else {
-                    Noeud* temp = parent; //Inversion OPERATEUR et (REEL OU VARIABLE)
-                    parent = noeud;
-                    parent->parent = temp->parent;
-                    if(temp->parent != 0) parent->parent->jeton_g = parent;
-                    noeud = temp;
-                    parent->jeton_g = noeud;
-                    noeud->parent = parent;
+                    noeud->jeton_g = parent;
+                    if(parent->parent != 0){
+                        noeud->parent = parent->parent;
+                        if(noeud->parent->jeton_g == noeud->jeton_g) noeud->parent->jeton_g = noeud;
+                        else noeud->parent->jeton_d = noeud;
+                    }
+
+                    parent->parent = noeud;
+
+                    parent = noeud; //Pour la recursivité
                 }
             }
             creerArbre(jeton,indexBase + 1, parent);
