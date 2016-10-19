@@ -11,10 +11,10 @@
 #include <string>
 #include <vector>
 using namespace std;
-string mainString="(2x+2)";
+string mainString="tan(2x+2)";
 
 bool isFunction(char cara){
-	if ((cara>'A' && cara<'Z' && cara!='X') || (cara>'a' && cara<'z' && cara!='x')){
+	if ((cara>='A' && cara<='Z' && cara!='X') || (cara>='a' && cara<='z' && cara!='x')){
 		return true;
 	}
 	return false;
@@ -59,10 +59,11 @@ vector<string> toLexeme(string chaine){
 	vector<string> res;
 	char cara;
 	int i=0;
-	while (i<(int)sizeof(chaine)){
+	while (i<=(int)sizeof(chaine)){
 		cara=chaine[i];
 		if (isFunction(cara)){
-			string chainePro=cara+"";
+			string chainePro="";
+			chainePro=chainePro+cara;
 			i++;
 			cara=chaine[i];
 			while (isFunction(cara)){
@@ -70,10 +71,10 @@ vector<string> toLexeme(string chaine){
 				i++;
 				cara=chaine[i];
 			}
-
-			if ( chainePro.compare("sin") == 0 ) {
-
+			i--;
+			if ( chainePro.compare("sin") == 0 || chainePro.compare("SIN") == 0 || chainePro.compare("cos") == 0 || chainePro.compare("COS") == 0 || chainePro.compare("sqrt") == 0 || chainePro.compare("SQRT") == 0 || chainePro.compare("tan") == 0 || chainePro.compare("TAN") == 0 || chainePro.compare("log") == 0 || chainePro.compare("LOG") == 0 || chainePro.compare("ln") == 0 || chainePro.compare("LN") == 0) {
 					res.push_back("FUNCTION");
+			}else{
 				//TODO retourner code erreur référent à fonction non reconnus
 			}
 		}else if (isNumber(cara)){
