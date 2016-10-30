@@ -7,12 +7,22 @@
 // TODO: Ajout du traitement des décimaux
 //============================================================================
 #include <iostream>
+#include <stdlib.h>
 #include <sstream>
 #include "../StructDatas.h"
 #include <string>
 #include <vector>
 using namespace std;
-string mainString="tan(22,25x+2)";
+string mainString="tan(23.5x/5)";
+
+float string2float(string str)
+{
+	stringstream ss;
+	float f;
+	ss.str(str);
+	ss >> f;
+	return f;
+}
 
 bool isFunction(char cara){
 	if ((cara>='A' && cara<='Z' && cara!='X') || (cara>='a' && cara<='z' && cara!='x')){
@@ -64,7 +74,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 	Valeur val; // définis par fonction OU opérateur OU valeur
 
 	int i=0;
-	while (i<=(int)sizeof(chaine)){
+	while (i<chaine.size()){
 		cara=chaine[i];
 		if (isFunction(cara)){
 			lex=FUNCTION;
@@ -115,10 +125,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 			if (verif2==true){
 				//TODO retourner code erreur référent à virgule de fin
 			}else{
-				stringstream ss(nomb);
-				float f=0;
-				ss >> f;
-				val.value=f;
+				val.value=string2float(nomb);
 				i--;
 			}
 		}else if (isVar(cara)){
@@ -154,8 +161,8 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 
 int main(){
 	vector<Jeton> resultat=aToken(mainString);
-	for (int i=0;i<resultat.size();i++){
-		cout << (resultat.at(i).lexeme);
+	for (int i=0;i<(int)resultat.size();i++){
+		cout << resultat.at(i).lexeme;
 	}
 	return 0;
 }
