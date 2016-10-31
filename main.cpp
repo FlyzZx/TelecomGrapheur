@@ -23,7 +23,7 @@ int main()
     N->parent=(Noeud*)malloc(sizeof(Noeud));
 //    float x1,x2;
 //    x1 = 5.0;x2= 4.0;
-    N->jeton_g->jeton.lexeme = VARIABLE;
+   /*N->jeton_g->jeton.lexeme = VARIABLE;
     //N->jeton.lexeme= OPERATEUR;
     N->jeton_d->jeton.valeur.value=5.0;
     N->parent->jeton.lexeme =FUNCTION;
@@ -31,16 +31,25 @@ int main()
     //N->parent->jeton.valeur.operateur = DIV;
     N->jeton_g->jeton.valeur.value = 5.0;
     N->jeton_d->jeton.valeur.value =1.0;
-    N->parent->jeton.valeur.fonction=SIN;
+    N->parent->jeton.valeur.fonction=SIN;*/
+
+    N->parent->jeton.lexeme=FUNCTION;
+    N->parent->jeton.valeur.fonction=TAN;
+
+    N->jeton_g->jeton.lexeme=OPERATEUR;
+    N->jeton_g->jeton.valeur.operateur=PLUS;
+    //N = N->jeton_g;
+    N->jeton_g->jeton.lexeme=REEL;
+    N->jeton_d->jeton.valeur.value=3;
+    N->jeton_d->jeton.lexeme=REEL;
+    N->jeton_g->jeton.valeur.value=5;
 
 
     //operation(N->jeton_d->jeton.valeur.value, N->jeton_g->jeton.valeur.value, N->parent->jeton);
     cout << cos(5.0)<< endl;
     getErreur();
    // fonction(N->jeton_g->jeton.valeur.value, N->parent->jeton);
-    boucleLexeme(N);
-
-
+    //boucleLexeme(N);
 
 
     return 0;
@@ -149,10 +158,20 @@ void boucleLexeme(Noeud *N){
     int i=0;
     cout << "valeur lexeme: "<<N->parent->jeton.lexeme<<endl;
     Lexeme tmp = N->parent->jeton.lexeme;
-    while ((N->parent->jeton.lexeme == FUNCTION) || (N->parent->jeton.lexeme == OPERATEUR)){
+    /* boucle qui gere les fonctions et les operateurs*/
+    while ((tmp == FUNCTION) || (tmp == OPERATEUR)){
         //N=N->jeton_g;
         if (tmp == OPERATEUR) {
             operation(N->jeton_d->jeton.valeur.value, N->jeton_g->jeton.valeur.value, N->parent->jeton);
+        }
+        else if (tmp == FUNCTION){
+            if (N->jeton_g->jeton.lexeme == REEL || N->jeton_g->jeton.lexeme == VARIABLE){
+
+                fonction(N->jeton_g->jeton.valeur.value, N->parent->jeton);
+            }
+            else {
+                tmp = N->jeton_g->jeton.lexeme;
+            }
         }
         else{
             fonction(N->jeton_g->jeton.valeur.value, N->parent->jeton);
@@ -164,4 +183,3 @@ void boucleLexeme(Noeud *N){
 
     }
 }
-
