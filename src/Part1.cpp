@@ -8,12 +8,13 @@
 //============================================================================
 #include <iostream>
 #include <stdlib.h>
+#include <cstdlib>
 #include <sstream>
 #include "../StructDatas.h"
 #include <string>
 #include <vector>
 using namespace std;
-string mainString="tan(23.5x/5)";
+string mainString="tan(2,3,5x/5)";
 
 float string2float(string str)
 {
@@ -67,14 +68,15 @@ bool isParenthesisClosing(char cara){
 }
 
 vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
+
 	vector<Jeton> res;
 	char cara;
 
 	Lexeme lex; // définis la correspondance de la valeur associé dans le token (jeton)
 	Valeur val; // définis par fonction OU opérateur OU valeur
-
+	try{
 	int i=0;
-	while (i<chaine.size()){
+	while (i<(int)chaine.size()){
 		cara=chaine[i];
 		if (isFunction(cara)){
 			lex=FUNCTION;
@@ -101,6 +103,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 			}else if(chainePro.compare("ln") == 0 || chainePro.compare("LN") == 0){
 				val.fonction=LN;
 			}else{
+				throw string("ERREUR: Fonction utilisé non-reconnus...");
 				//TODO retourner code erreur référent à fonction non reconnus
 			}
 		}else if (isNumber(cara)){
@@ -114,6 +117,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 					verif2=true;
 					nomb=nomb+cara;
 				}else if(verif==true && (cara==',' || cara=='.')){
+					throw string("ERREUR: 2 virgules pour l'un des nombres...");
 					//TODO retourner code erreur référent à 2 virgules présentes
 				}else{
 					nomb=nomb+cara;
@@ -123,6 +127,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 				cara=chaine[i];
 			}
 			if (verif2==true){
+				throw string("ERREUR: L'un des nombre se termine par une virgule...");
 				//TODO retourner code erreur référent à virgule de fin
 			}else{
 				val.value=string2float(nomb);
@@ -141,6 +146,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 			}else if(cara=='/'){
 				val.operateur=DIV;
 			}else{
+				throw string("FATAL ERROR ! Cette erreur est impossible à atteindre...");
 			// TODO fatal error impossible a atteindre normallement
 			}
 		}else if (isParenthesisOpens(cara)){
@@ -148,6 +154,7 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 		}else if (isParenthesisClosing(cara)){
 			lex=PARENT_CLOSE;
 		}else{
+			throw string("ERREUR: Un caractère inconnus a été entré...");
 		// TODO retourner une erreur référent à un caractère inconnus dans l'operation
 		}
 		Jeton token;
@@ -155,6 +162,9 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 		token.valeur=val;
 		res.push_back(token);
 		i++;
+	}
+	}catch(string const& chaine){
+				cerr << chaine << endl;
 	}
 	return res;
 }
