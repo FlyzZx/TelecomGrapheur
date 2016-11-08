@@ -29,7 +29,6 @@ private slots:
   void removeAllGraphs();
   void contextMenuRequest(QPoint pos);
   void moveLegend();
-  float calcul(float x);
   void graphClicked(QCPAbstractPlottable *plottable, int dataIndex);
   void afficheErreur(char *tmp);
 

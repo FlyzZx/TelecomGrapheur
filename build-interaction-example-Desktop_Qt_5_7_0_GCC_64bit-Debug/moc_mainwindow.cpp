@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[28];
-    char stringdata0[355];
+    QByteArrayData data[34];
+    char stringdata0[437];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,16 +47,22 @@ QT_MOC_LITERAL(14, 171, 4), // "item"
 QT_MOC_LITERAL(15, 176, 16), // "selectionChanged"
 QT_MOC_LITERAL(16, 193, 10), // "mousePress"
 QT_MOC_LITERAL(17, 204, 10), // "mouseWheel"
-QT_MOC_LITERAL(18, 215, 14), // "addRandomGraph"
-QT_MOC_LITERAL(19, 230, 19), // "removeSelectedGraph"
-QT_MOC_LITERAL(20, 250, 15), // "removeAllGraphs"
-QT_MOC_LITERAL(21, 266, 18), // "contextMenuRequest"
-QT_MOC_LITERAL(22, 285, 3), // "pos"
-QT_MOC_LITERAL(23, 289, 10), // "moveLegend"
-QT_MOC_LITERAL(24, 300, 12), // "graphClicked"
-QT_MOC_LITERAL(25, 313, 21), // "QCPAbstractPlottable*"
-QT_MOC_LITERAL(26, 335, 9), // "plottable"
-QT_MOC_LITERAL(27, 345, 9) // "dataIndex"
+QT_MOC_LITERAL(18, 215, 11), // "chargeGraph"
+QT_MOC_LITERAL(19, 227, 19), // "removeSelectedGraph"
+QT_MOC_LITERAL(20, 247, 15), // "removeAllGraphs"
+QT_MOC_LITERAL(21, 263, 18), // "contextMenuRequest"
+QT_MOC_LITERAL(22, 282, 3), // "pos"
+QT_MOC_LITERAL(23, 286, 10), // "moveLegend"
+QT_MOC_LITERAL(24, 297, 12), // "graphClicked"
+QT_MOC_LITERAL(25, 310, 21), // "QCPAbstractPlottable*"
+QT_MOC_LITERAL(26, 332, 9), // "plottable"
+QT_MOC_LITERAL(27, 342, 9), // "dataIndex"
+QT_MOC_LITERAL(28, 352, 13), // "afficheErreur"
+QT_MOC_LITERAL(29, 366, 5), // "char*"
+QT_MOC_LITERAL(30, 372, 3), // "tmp"
+QT_MOC_LITERAL(31, 376, 18), // "on_valider_clicked"
+QT_MOC_LITERAL(32, 395, 19), // "on_Nettoyer_clicked"
+QT_MOC_LITERAL(33, 415, 21) // "on_pushButton_clicked"
 
     },
     "MainWindow\0titleDoubleClick\0\0QMouseEvent*\0"
@@ -65,11 +71,13 @@ QT_MOC_LITERAL(27, 345, 9) // "dataIndex"
     "legendDoubleClick\0QCPLegend*\0legend\0"
     "QCPAbstractLegendItem*\0item\0"
     "selectionChanged\0mousePress\0mouseWheel\0"
-    "addRandomGraph\0removeSelectedGraph\0"
+    "chargeGraph\0removeSelectedGraph\0"
     "removeAllGraphs\0contextMenuRequest\0"
     "pos\0moveLegend\0graphClicked\0"
     "QCPAbstractPlottable*\0plottable\0"
-    "dataIndex"
+    "dataIndex\0afficheErreur\0char*\0tmp\0"
+    "on_valider_clicked\0on_Nettoyer_clicked\0"
+    "on_pushButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -79,7 +87,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -87,18 +95,22 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x08 /* Private */,
-       5,    2,   77,    2, 0x08 /* Private */,
-      10,    2,   82,    2, 0x08 /* Private */,
-      15,    0,   87,    2, 0x08 /* Private */,
-      16,    0,   88,    2, 0x08 /* Private */,
-      17,    0,   89,    2, 0x08 /* Private */,
-      18,    0,   90,    2, 0x08 /* Private */,
-      19,    0,   91,    2, 0x08 /* Private */,
-      20,    0,   92,    2, 0x08 /* Private */,
-      21,    1,   93,    2, 0x08 /* Private */,
-      23,    0,   96,    2, 0x08 /* Private */,
-      24,    2,   97,    2, 0x08 /* Private */,
+       1,    1,   94,    2, 0x08 /* Private */,
+       5,    2,   97,    2, 0x08 /* Private */,
+      10,    2,  102,    2, 0x08 /* Private */,
+      15,    0,  107,    2, 0x08 /* Private */,
+      16,    0,  108,    2, 0x08 /* Private */,
+      17,    0,  109,    2, 0x08 /* Private */,
+      18,    0,  110,    2, 0x08 /* Private */,
+      19,    0,  111,    2, 0x08 /* Private */,
+      20,    0,  112,    2, 0x08 /* Private */,
+      21,    1,  113,    2, 0x08 /* Private */,
+      23,    0,  116,    2, 0x08 /* Private */,
+      24,    2,  117,    2, 0x08 /* Private */,
+      28,    1,  122,    2, 0x08 /* Private */,
+      31,    0,  125,    2, 0x08 /* Private */,
+      32,    0,  126,    2, 0x08 /* Private */,
+      33,    0,  127,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -113,6 +125,10 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QPoint,   22,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 25, QMetaType::Int,   26,   27,
+    QMetaType::Void, 0x80000000 | 29,   30,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -129,12 +145,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->selectionChanged(); break;
         case 4: _t->mousePress(); break;
         case 5: _t->mouseWheel(); break;
-        case 6: _t->addRandomGraph(); break;
+        case 6: _t->chargeGraph(); break;
         case 7: _t->removeSelectedGraph(); break;
         case 8: _t->removeAllGraphs(); break;
         case 9: _t->contextMenuRequest((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         case 10: _t->moveLegend(); break;
         case 11: _t->graphClicked((*reinterpret_cast< QCPAbstractPlottable*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 12: _t->afficheErreur((*reinterpret_cast< char*(*)>(_a[1]))); break;
+        case 13: _t->on_valider_clicked(); break;
+        case 14: _t->on_Nettoyer_clicked(); break;
+        case 15: _t->on_pushButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -194,13 +214,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 16;
     }
     return _id;
 }
