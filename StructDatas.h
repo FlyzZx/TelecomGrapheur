@@ -25,6 +25,8 @@ typedef enum {
     ERR301 = 301,
     ERR302 = 302,
     ERR303 = 303,
+    ERR304 = 304,
+    ERR305 = 305,
     ERR401 = 401,
     ERR402 = 402,
     ERR403 = 403
