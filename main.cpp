@@ -7,9 +7,9 @@ int main()
 {
     std::vector<Jeton> entree;
     Jeton j;
-    // 9 / Sin(x + 14) / 10
+    // (9 / Sin(x + 14)) / 10
     j.lexeme = PARENT_OPEN;
-    entree.push_back(j);
+    //entree.push_back(j);
     j.lexeme = REEL;
     j.valeur.value = 9;
     entree.push_back(j);
@@ -31,7 +31,7 @@ int main()
     entree.push_back(j);
     j.lexeme = PARENT_CLOSE;
     entree.push_back(j);
-    entree.push_back(j);
+    //entree.push_back(j);
     j.lexeme = OPERATEUR;
     j.valeur.operateur = DIV;
     entree.push_back(j);

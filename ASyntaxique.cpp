@@ -142,14 +142,17 @@ Noeud *ASyntaxique::getNoeudWithLowerPriority(Noeud *n, int priority) {
 
 vector<Jeton> ASyntaxique::setPriorite(vector<Jeton> jeton) {
     unsigned int prio =0;
+    vector<int> indexTab;
     for(unsigned int i =0;i<jeton.size();i++){
         switch(jeton[i].lexeme){
         case PARENT_OPEN :
             prio = prio + 10;
+            indexTab.push_back(i);
             break;
 
          case PARENT_CLOSE :
             prio = prio - 10;
+            indexTab.push_back(i);
             break;
 
          case OPERATEUR :
@@ -172,5 +175,13 @@ vector<Jeton> ASyntaxique::setPriorite(vector<Jeton> jeton) {
             break;
         }
     }
+
+    for (int i = 0; i < indexTab.size(); i++) {
+        jeton.erase(jeton.begin() + indexTab[i]);
+        for(int j = 0; j < indexTab.size(); j++) {
+            indexTab[j]--;
+        }
+    }
+
     return jeton;
 }
