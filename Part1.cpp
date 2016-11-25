@@ -180,15 +180,3 @@ vector<Jeton> aToken(string chaine){ // a prononcer "haDoken" pour la blague ;)
 	}
 	return res;
 }
-
-int main(){
-	vector<Jeton> resultat=aToken(mainString);
-	string strToken="";
-	for (int i=0;i<(int)resultat.size();i++){
-		strToken=strToken+NumberToString(resultat.at(i).lexeme);
-	}
-	if (error==false){
-		cout << strToken;
-	}
-	return 0;
-}
