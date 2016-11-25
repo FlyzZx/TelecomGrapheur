@@ -9,64 +9,36 @@ using namespace std;
 Erreur e;
 vector<Erreur> listErreur;
 
-void recursive(Noeud* racine, float val);
+float evaluation(Noeud* racine, float val);
 void operation(Noeud* ope, float val);
 void fonction (Noeud* fonc, float val);
+void detectionErreur(CodeErreur code,char* message);
 
-int main()
-{
-      //Arbre pour G3 (Sin(2 + x))
-   Noeud* racine = (Noeud*)malloc(sizeof(Noeud));
-   racine->jeton.lexeme = FUNCTION;
-   racine->jeton.valeur.fonction = SIN;
-   racine->jeton.priorite = 2;
-   racine->parent = NULL;
-   racine->jeton_d = NULL;
+float evaluation(Noeud* racine, float val){
 
-   Noeud* ope1 = (Noeud*)malloc(sizeof(Noeud));
-   ope1->jeton.lexeme = OPERATEUR;
-   ope1->jeton.valeur.operateur = PLUS;
-   ope1->jeton.priorite = 11;
-   ope1->parent = racine;
-   racine->jeton_g = ope1;
-
-   Noeud* valeur1 = (Noeud*)malloc(sizeof(Noeud));
-   valeur1->jeton.lexeme = REEL;
-   valeur1->jeton.valeur.value = 2;
-   valeur1->jeton.priorite = 10;
-   valeur1->jeton_d = NULL;
-   valeur1->jeton_g = NULL;
-   valeur1->parent = ope1;
-   ope1->jeton_g = valeur1;
-
-   Noeud* valeur2 = (Noeud*)malloc(sizeof(Noeud));
-   valeur2->jeton.lexeme = VARIABLE;
-   valeur2->jeton.priorite = 10;
-   valeur2->parent = ope1;
-   valeur2->jeton_d = NULL;
-   valeur2->jeton_g = NULL;
-   ope1->jeton_d = valeur2;
-   //Vider les pointeurs de la memoire a la fin du programme (IMPORTANT !!)
-
-    float x = 2.1;
-   recursive(racine, x);
-
-
-
-
-
-   delete racine;
-   delete ope1;
-   delete valeur1;
-   delete valeur2;
-    return 0;
-}
-void recursive(Noeud* racine, float val){
     while (racine->jeton_g !=NULL){
         racine = racine->jeton_g;
     }
-   operation(racine, val);
+
+    while(racine->parent !=NULL)
+    {
+        if(racine->parent->jeton.lexeme==OPERATEUR)
+        {
+            operation(racine, val);
+            if(racine->parent !=NULL){racine=racine->parent;}
+        }
+        else if(racine->parent->jeton.lexeme==FUNCTION)
+        {
+            fonction (racine,val);
+            if(racine->parent !=NULL){racine=racine->parent;}
+        }
+
+    }
+   // cout<<"fonction recu ->"<< racine->jeton.valeur.value<<endl;
+
+return racine->jeton.valeur.value;
 }
+
 
 void operation(Noeud* ope, float val){
     float vg = 0,vd = 0;
@@ -80,6 +52,7 @@ void operation(Noeud* ope, float val){
         ope->jeton_d->jeton.lexeme = REEL;
         ope->jeton_d->jeton.valeur.value = val;
     }
+
     switch (ope->jeton.valeur.operateur){
     case PLUS:
        vg = ope->jeton_g->jeton.valeur.value;
@@ -103,26 +76,23 @@ void operation(Noeud* ope, float val){
        vg = ope->jeton_g->jeton.valeur.value;
        vd = ope->jeton_d->jeton.valeur.value;
         if (vd == 0){
-            e.codeErreur = ERR301;
-            e.message = "Division par 0";
-            listErreur.push_back(e);
+            detectionErreur(ERR301,"Division par 0");
+            ope->jeton.valeur.value =0; //Je fixe la valeur à 0 pour la connaitre.
         }
         else{
              ope->jeton.valeur.value = vg / vd;
         }
         break;
         default:
-            e.codeErreur = ERR305;
-            e.message = "Erreur je sais pas";
-            listErreur.push_back(e);// erreur de calcul
+              detectionErreur(ERR302,"Erreur je ne sais pas");// erreur de calcul
             break;
         ope->jeton.lexeme =REEL; //transformation ope en reel
             }
 
    // cout<<ope->jeton.valeur.value<<endl;
-   fonction (ope,val);
+  // fonction (ope,val);
 
-    }
+}
 
 void fonction(Noeud* fonc, float val){
     fonc=fonc->parent;
@@ -152,9 +122,8 @@ void fonction(Noeud* fonc, float val){
     case SQRT:
         vg = fonc->jeton_g->jeton.valeur.value;
         if (vg < 0.0){
-            e.codeErreur = ERR302;
-            e.message = "la racine doit etre superieur a 0";
-            listErreur.push_back(e);
+        detectionErreur(ERR303,"La racine doit etre superieure a 0");
+        fonc->jeton.valeur.value = sqrt(0);
         }
         else{
         fonc->jeton.valeur.value = sqrt(vg);
@@ -164,9 +133,8 @@ void fonction(Noeud* fonc, float val){
     case LOG:
         vg = fonc->jeton_g->jeton.valeur.value;
         if (vg <= 0.0){
-            e.codeErreur = ERR303;
-            e.message = "le log doit etre superieur a 0";
-            listErreur.push_back(e);
+        detectionErreur(ERR304,"Le log doit etre superieur a 0");
+        fonc->jeton.valeur.value = log10(1);
         }
         else{
         fonc->jeton.valeur.value = log10(vg);
@@ -176,23 +144,27 @@ void fonction(Noeud* fonc, float val){
     case LN:
         vg = fonc->jeton_g->jeton.valeur.value;
         if (vg <= 0.0){
-            e.codeErreur = ERR302;
-            e.message = "le log neperien  doit etre superieur a 0";
-            listErreur.push_back(e);
+        detectionErreur(ERR305,"Le log neperien  doit etre superieur a 0");
+        fonc->jeton.valeur.value = log(1);
         }
         else{
         fonc->jeton.valeur.value = log(vg);
         }
        break;
         default:
-            e.codeErreur = ERR305;
-            e.message = "Erreur je sais pas";
-            listErreur.push_back(e);// erreur de calcul
+         detectionErreur(ERR302,"Erreur je ne sais pas");// erreur de calcul
         break;
 
     fonc->jeton.lexeme =REEL; //transformation ope en reel
     }
-   // cout<< fonc->jeton.valeur.value<<endl;
+    //cout<< fonc->jeton.valeur.value<<endl;
+}
+
+void detectionErreur(CodeErreur code,char* message){
+
+        e.codeErreur = code;
+        e.message =message;
+        listErreur.push_back(e);
 }
 
 
