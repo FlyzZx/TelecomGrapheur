@@ -17,16 +17,18 @@ typedef enum {
 
 typedef enum {
     ERR101 = 101,
-    ERR102 = 102, 
-    ERR103 = 103, 
-    ERR201 = 201, 
-    ERR202 = 202, 
-    ERR203 = 203, 
-    ERR301 = 301, 
-    ERR302 = 302, 
-    ERR303 = 303, 
-    ERR401 = 401, 
-    ERR402 = 402, 
+    ERR102 = 102,
+    ERR103 = 103,
+    ERR201 = 201,
+    ERR202 = 202,
+    ERR203 = 203,
+    ERR301 = 301,
+    ERR302 = 302,
+    ERR303 = 303,
+    ERR304 = 304,
+    ERR305 = 305,
+    ERR401 = 401,
+    ERR402 = 402,
     ERR403 = 403
 } CodeErreur;
 
