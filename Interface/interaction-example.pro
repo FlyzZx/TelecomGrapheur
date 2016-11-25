@@ -12,10 +12,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-         qcustomplot.cpp
-
+         qcustomplot.cpp \
+    ASyntaxique.cpp \
+    Evaluation.cpp \
+    analyselexicale.cpp
 HEADERS  += mainwindow.h \
-    qcustomplot.h
+    qcustomplot.h \
+    ASyntaxique.h \
+    analyselexicale.h \
+    evaluation.h
 
 FORMS    += mainwindow.ui
 

@@ -1,20 +1,6 @@
-#include <iostream>
-#include "StructDatas.h"
-#include <cstdlib>
-#include <math.h>
-#include <vector>
+#include "evaluation.h"
 
-
-using namespace std;
-Erreur e;
-vector<Erreur> listErreur;
-
-float evaluation(Noeud* racine, float val);
-void operation(Noeud* ope, float val);
-void fonction (Noeud* fonc, float val);
-void detectionErreur(CodeErreur code,char* message);
-
-float evaluation(Noeud* racine, float val){
+float Evaluation::evaluation(Noeud* racine, float val){
 
     while (racine->jeton_g !=NULL){
         racine = racine->jeton_g;
@@ -40,7 +26,7 @@ return racine->jeton.valeur.value;
 }
 
 
-void operation(Noeud* ope, float val){
+void Evaluation::operation(Noeud* ope, float val){
     float vg = 0,vd = 0;
     ope=ope->parent;
 
@@ -94,7 +80,7 @@ void operation(Noeud* ope, float val){
 
 }
 
-void fonction(Noeud* fonc, float val){
+void Evaluation::fonction(Noeud* fonc, float val){
     fonc=fonc->parent;
     float vg=0;
 
@@ -160,7 +146,7 @@ void fonction(Noeud* fonc, float val){
     //cout<< fonc->jeton.valeur.value<<endl;
 }
 
-void detectionErreur(CodeErreur code,char* message){
+void Evaluation::detectionErreur(CodeErreur code,char* message){
 
         e.codeErreur = code;
         e.message =message;
