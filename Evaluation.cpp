@@ -7,6 +7,10 @@ Evaluation::Evaluation()
 
 float Evaluation::evaluation(Noeud* racine, float val){
 
+    while(racine->jeton_g != 0) {
+        racine = racine->jeton_g;
+    }
+
     while(racine->parent !=0)
     {
         if(racine->parent->jeton.lexeme==OPERATEUR)
@@ -30,17 +34,14 @@ return racine->jeton.valeur.value;
 void Evaluation::operation(Noeud* ope, float val){
     float vg = 0,vd = 0;
     ope=ope->parent;
-    bool xWasLeft, xWasRight = false;
 
     if(ope->jeton_g->jeton.lexeme == VARIABLE ){
         ope->jeton_g->jeton.lexeme = REEL;
         ope->jeton_g->jeton.valeur.value = val;
-        xWasLeft = true;
     }
     else if( ope->jeton_d->jeton.lexeme == VARIABLE ){
         ope->jeton_d->jeton.lexeme = REEL;
         ope->jeton_d->jeton.valeur.value = val;
-        xWasRight = true;
     }
 
     switch (ope->jeton.valeur.operateur){
@@ -76,11 +77,9 @@ void Evaluation::operation(Noeud* ope, float val){
         default:
               detectionErreur(ERR302,"Erreur je ne sais pas");// erreur de calcul
             break;
-        ope->jeton.lexeme =REEL; //transformation ope en reel
-            }
 
-    if(xWasLeft) ope->jeton_g->jeton.lexeme = VARIABLE;
-    if(xWasRight) ope->jeton_d->jeton.lexeme = VARIABLE;
+            }
+    ope->jeton.lexeme =REEL; //transformation ope en reel
    // cout<<ope->jeton.valeur.value<<endl;
   // fonction (ope,val);
 
@@ -89,13 +88,11 @@ void Evaluation::operation(Noeud* ope, float val){
 void Evaluation::fonction(Noeud* fonc, float val){
     fonc=fonc->parent;
     float vg=0;
-    bool xWasLeft = false;
 
 
     if(fonc->jeton_g->jeton.lexeme == VARIABLE ){
         fonc->jeton_g->jeton.lexeme = REEL;
         fonc->jeton_g->jeton.valeur.value = val;
-        xWasLeft = true;
     }
     switch (fonc->jeton.valeur.fonction){
     case SIN:
@@ -149,10 +146,9 @@ void Evaluation::fonction(Noeud* fonc, float val){
          detectionErreur(ERR302,"Erreur je ne sais pas");// erreur de calcul
         break;
 
-    fonc->jeton.lexeme =REEL; //transformation ope en reel
-    }
 
-    if(xWasLeft) fonc->jeton_g->jeton.lexeme = VARIABLE;
+    }
+    fonc->jeton.lexeme =REEL; //transformation ope en reel
     //cout<< fonc->jeton.valeur.value<<endl;
 }
 

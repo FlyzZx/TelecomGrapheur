@@ -209,7 +209,6 @@ void MainWindow::chargeGraph()
       vector<Erreur> errTab = aSyntaxique->checkSyntax(jetonTab);
       if(errTab.size() == 0) {
           jetonTab = aSyntaxique->setPriorite(jetonTab);
-          Noeud *racine = aSyntaxique->creerArbre(jetonTab);
           //Gestion des erreurs de bornes
           if(xmin>=xmax){
               afficheErreur("Veuillez déclarer une borne Xmax strictement supérieure à Xmin");
@@ -226,14 +225,15 @@ void MainWindow::chargeGraph()
 
                   //Calcul du nombre de pas à dessiner
                   float precision = ui->precision->value();
-                  float taille = (xmax-xmin)/precision;
+                  double taille = (xmax-xmin)/precision;
 
                   QVector<double> x((int)taille+1);
                   QVector<double> y((int)taille+1);
 
                   int k=0;
-                  for (float i=xmin; i<xmax+1; i+=precision)
+                  for (double i=xmin; i<xmax+1; i+=precision)
                   {
+                    Noeud *racine = aSyntaxique->creerArbre(jetonTab);
                     x[k] = i;
                     y[k] = this->evaluation->evaluation(racine, i);
                     k++;

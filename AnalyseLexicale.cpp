@@ -21,9 +21,9 @@ string AnalyseLexicale::FonctionToString(int nb) {
 }
 
 
-float AnalyseLexicale::string2float(string str) { //Methode pour convertir une chaine String en float (utilisée pour traiter les décimaux => FDP)
-	stringstream ss;			// *Vous avez compris la blague, les traiter genre insulter :D*
-	float f;					// wallih wallouh c'est pas drôle
+float AnalyseLexicale::string2float(string str) { //Methode pour convertir une chaine String en float (utilisée pour traiter les décimaux)
+    stringstream ss;
+    float f;
 	ss.str(str);
 	ss >> f;
 	return f;
@@ -78,8 +78,7 @@ bool AnalyseLexicale::isParenthesisClosing(char cara) {
 // La méthode qui suit représente le code principal de la partie d'analyse lexicale
 // --------------------------------------------------------------------------------------------------------------------
 
-vector<Jeton> AnalyseLexicale::aToken(string chaine) { // a prononcer "haDoken" pour la blague ;)
-									// t'es un rigolo toi
+vector<Jeton> AnalyseLexicale::aToken(string chaine) {
 	vector<Jeton> res;
 	char cara;
     bool negatif = false;

@@ -109,7 +109,7 @@ Noeud *ASyntaxique::creerArbre(vector<Jeton> jeton, unsigned int indexBase, Noeu
             break;
         }
     }
-    return noeud;
+    return this->getRacine(noeud);
 }
 
 Noeud* ASyntaxique::creerNoeud(Jeton jeton, Noeud *fg, Noeud *fd, Noeud *parent) {
