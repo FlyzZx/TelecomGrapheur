@@ -227,8 +227,8 @@ void MainWindow::chargeGraph()
                   float precision = ui->precision->value();
                   double taille = (xmax-xmin)/precision;
 
-                  QVector<double> x((int)taille+1);
-                  QVector<double> y((int)taille+1);
+                  QVector<double> x((int)taille * (1/precision) + 1);
+                  QVector<double> y((int)taille * (1/precision) + 1);
 
                   int k=0;
                   for (double i=xmin; i<xmax+1; i+=precision)
