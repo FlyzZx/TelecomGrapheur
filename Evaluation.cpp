@@ -6,34 +6,38 @@ Evaluation::Evaluation()
 }
 
 float Evaluation::evaluation(Noeud* racine, float val){
+    if(racine->jeton.lexeme != REEL || racine->parent !=0){
+        if(racine->jeton_g != 0 && (racine->jeton_g->jeton.lexeme == OPERATEUR || racine->jeton_g->jeton.lexeme ==FUNCTION))
+        {
+            evaluation(racine->jeton_g,val);
 
-    while(racine->jeton_g != 0) {
-        racine = racine->jeton_g;
+        }
+        else if(racine->jeton_d != 0 && (racine->jeton_d->jeton.lexeme ==OPERATEUR || racine->jeton_d->jeton.lexeme ==FUNCTION))
+        {
+            evaluation(racine->jeton_d,val);
+        }
+        else
+        {
+            if(racine->jeton.lexeme ==OPERATEUR )
+            {
+                operation(racine,val);
+                if(racine->parent !=0) racine=racine->parent;
+            }
+            else if(racine->jeton.lexeme ==FUNCTION)
+            {
+                    fonction(racine,val);
+                  if(racine->parent !=0) racine=racine->parent;
+            }
+            evaluation(racine,val);
+        }
     }
 
-    while(racine->parent !=0)
-    {
-        if(racine->parent->jeton.lexeme==OPERATEUR)
-        {
-            operation(racine, val);
-            if(racine->parent !=0){racine=racine->parent;}
-        }
-        else if(racine->parent->jeton.lexeme==FUNCTION)
-        {
-            fonction (racine,val);
-            if(racine->parent !=0){racine=racine->parent;}
-        }
-
-    }
-   // cout<<"fonction recu ->"<< racine->jeton.valeur.value<<endl;
-
-return racine->jeton.valeur.value;
+    return racine->jeton.valeur.value;
 }
 
 
 void Evaluation::operation(Noeud* ope, float val){
     float vg = 0,vd = 0;
-    ope=ope->parent;
 
     if(ope->jeton_g->jeton.lexeme == VARIABLE ){
         ope->jeton_g->jeton.lexeme = REEL;
@@ -80,20 +84,16 @@ void Evaluation::operation(Noeud* ope, float val){
 
             }
     ope->jeton.lexeme =REEL; //transformation ope en reel
-   // cout<<ope->jeton.valeur.value<<endl;
-  // fonction (ope,val);
-
 }
 
 void Evaluation::fonction(Noeud* fonc, float val){
-    fonc=fonc->parent;
     float vg=0;
-
 
     if(fonc->jeton_g->jeton.lexeme == VARIABLE ){
         fonc->jeton_g->jeton.lexeme = REEL;
         fonc->jeton_g->jeton.valeur.value = val;
     }
+
     switch (fonc->jeton.valeur.fonction){
     case SIN:
         vg = fonc->jeton_g->jeton.valeur.value;
@@ -148,7 +148,8 @@ void Evaluation::fonction(Noeud* fonc, float val){
 
 
     }
-    fonc->jeton.lexeme =REEL; //transformation ope en reel
+      fonc->jeton.lexeme =REEL; //transformation ope en reel
+
     //cout<< fonc->jeton.valeur.value<<endl;
 }
 
