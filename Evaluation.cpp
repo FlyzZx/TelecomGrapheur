@@ -72,7 +72,7 @@ void Evaluation::operation(Noeud* ope, float val){
        vd = ope->jeton_d->jeton.valeur.value;
         if (vd == 0){
             detectionErreur(ERR301,"Division par 0");
-            ope->jeton.valeur.value =0; //Je fixe la valeur à 0 pour la connaitre.
+            ope->jeton.valeur.value =0; //Je fixe la valeur ï¿½ 0 pour la connaitre.
         }
         else{
              ope->jeton.valeur.value = vg / vd;
@@ -162,6 +162,11 @@ void Evaluation::detectionErreur(CodeErreur code,char* message){
 
 vector<Erreur> Evaluation::getErreurs() {
     return this->listErreur;
+}
+
+void Evaluation::clearErrors()
+{
+    this->listErreur.clear();
 }
 
 

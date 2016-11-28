@@ -12,6 +12,7 @@ public:
     Evaluation();
     Erreur e;
     vector<Erreur> getErreurs();
+    void clearErrors();
     float evaluation(Noeud* racine, float val);
     void operation(Noeud* ope, float val);
     void fonction(Noeud* fonc, float val);

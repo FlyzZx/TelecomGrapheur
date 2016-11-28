@@ -265,7 +265,9 @@ void MainWindow::chargeGraph()
       }
   }
 
+  //Nettoyage des erreurs
   this->aSyntaxique->clearErrors();
+  this->evaluation->clearErrors();
 }
 
 
