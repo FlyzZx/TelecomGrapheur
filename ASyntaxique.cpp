@@ -3,6 +3,10 @@
 ASyntaxique::ASyntaxique() {
 }
 
+void ASyntaxique::clearErrors() {
+    this->erreurs.clear();
+}
+
 vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     int nbPO = 0, nbPC = 0; //Compteurs de parenthéses
     for(unsigned int i = 0; i < jeton.size(); i++) {

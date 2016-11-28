@@ -9,6 +9,7 @@ using namespace std;
 class ASyntaxique {
 public:
     ASyntaxique();
+    void clearErrors();
     vector<Erreur> checkSyntax(vector<Jeton> jeton);
     Noeud* creerArbre(vector<Jeton> jeton, unsigned int indexBase = 0, Noeud *parent = 0);
     vector<Jeton> setPriorite(vector<Jeton> jeton);

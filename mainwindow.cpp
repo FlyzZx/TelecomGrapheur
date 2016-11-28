@@ -264,6 +264,8 @@ void MainWindow::chargeGraph()
           }
       }
   }
+
+  this->aSyntaxique->clearErrors();
 }
 
 
