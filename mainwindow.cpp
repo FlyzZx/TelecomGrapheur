@@ -239,7 +239,7 @@ void MainWindow::chargeGraph()
                     k++;
                   }
                   ui->customPlot->addGraph();
-                  ui->customPlot->graph()->setName(QString("=Y%1").arg(ui->customPlot->graphCount()-1));
+                  ui->customPlot->graph()->setName(QString("Y = " + ui->expression->text()).arg(ui->customPlot->graphCount()-1));
                   ui->customPlot->graph()->setData(x, y);
 
                   //style du graphique
@@ -326,7 +326,6 @@ void MainWindow::graphClicked(QCPAbstractPlottable *plottable, int dataIndex)
 
 void MainWindow::on_valider_clicked()
 {
-
    chargeGraph();
 }
 
