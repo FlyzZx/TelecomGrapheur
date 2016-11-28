@@ -229,9 +229,16 @@ void MainWindow::chargeGraph()
                     y[k] = this->evaluation->evaluation(racine, i);
                     k++;
                   }
+                  QVector<double> x1(k);
+                  QVector<double> y1(k);
+                  for(int j=0;j<k;j++){
+                      x1[j]=x[j];
+                      y1[j]=y[j];
+                  }
+
                   ui->customPlot->addGraph();
                   ui->customPlot->graph()->setName(QString("Y = " + ui->expression->text()).arg(ui->customPlot->graphCount()-1));
-                  ui->customPlot->graph()->setData(x, y);
+                  ui->customPlot->graph()->setData(x1, y1);
 
                   //style du graphique
                   ui->customPlot->graph()->setLineStyle((QCPGraph::LineStyle)(1));
@@ -245,8 +252,12 @@ void MainWindow::chargeGraph()
                   ui->customPlot->graph()->setPen(graphPen);
                   ui->customPlot->replot();
               }
-            }
+      } else {
+          for(int i = 0; i < errTab.size(); i++) {
+              listeErreurs.push_back(errTab[i]);
+          }
       }
+  }
 }
 
 

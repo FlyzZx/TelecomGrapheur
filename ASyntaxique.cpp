@@ -17,19 +17,17 @@ vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
             if(jeton[i+1].lexeme != PARENT_OPEN) {
                 //ERREUR 202 : Pas de parenthèse après la fonction
                 Erreur err;
-                char msg[] = "Pas de parenthèse après la fonction";
                 err.codeErreur = ERR202;
-                err.message = msg;
+                err.message = "Pas de parenthèse après la fonction";
                 this->erreurs.push_back(err);
             }
             break;
         case OPERATEUR:
             if(jeton[i+1].lexeme == OPERATEUR) {
                 //ERREUR 203 : Double opérateur
-                char msg[] = "Double opérateur";
                 Erreur err;
                 err.codeErreur = ERR203;
-                err.message = msg;
+                err.message = "Double opérateur";
                 this->erreurs.push_back(err);
             }
             break;
@@ -39,10 +37,9 @@ vector<Erreur> ASyntaxique::checkSyntax(std::vector<Jeton> jeton) {
     }
     if(nbPO != nbPC) {
         //ERREUR 201 : Erreur parenthèse en moins ou en plus ou non fermée
-        char msg[] = "Parenthèse en moins ou en plus ou non fermée";
         Erreur err;
         err.codeErreur = ERR201;
-        err.message = msg;
+        err.message = "Parenthèse en moins ou en plus ou non fermée";
         this->erreurs.push_back(err);
     }
     return this->erreurs;
