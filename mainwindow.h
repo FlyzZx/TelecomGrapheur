@@ -51,6 +51,7 @@ private:
   AnalyseLexicale *aLexicale;
   ASyntaxique *aSyntaxique;
   Evaluation *evaluation;
+  std::vector<Erreur> listeErreurs;
 };
 
 #endif // MAINWINDOW_H

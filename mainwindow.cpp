@@ -100,13 +100,6 @@ void MainWindow::axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart par
   }
 }
 
-void MainWindow::afficheErreur(char *tmp){
-
-    ui->erreurMessage->setText(tmp);
-    ui->erreurMessage->setStyleSheet("QLabel {  color : red;}");
-    ui->erreurMessage->setVisible(true);
-    ui->pushButton->setVisible(true);
-}
 
 void MainWindow::legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item)
 {
@@ -210,15 +203,13 @@ void MainWindow::chargeGraph()
       if(errTab.size() == 0) {
           jetonTab = aSyntaxique->setPriorite(jetonTab);
           //Gestion des erreurs de bornes
-          if(xmin>=xmax){
-              afficheErreur("Veuillez déclarer une borne Xmax strictement supérieure à Xmin");
+          if(xmin>=xmax || ymin>=ymax){
+                Erreur e1;
+                e1.codeErreur=ERR401;
+                e1.message="Vérifiez vos bornes ...";
+                listeErreurs.push_back(e1);
           }
           else{
-
-              if(ymin>=ymax){
-                  afficheErreur("Veuillez déclarer une borne Xmin strictement inférieure à Xmax");
-              }
-              else{
 
                   ui->customPlot->xAxis->setRange(xmin-1, xmax+1);
                   ui->customPlot->yAxis->setRange(ymin-1, ymax+1);
@@ -256,10 +247,10 @@ void MainWindow::chargeGraph()
               }
             }
       }
-  }
-
-
 }
+
+
+
 
 void MainWindow::removeSelectedGraph()
 {
@@ -326,7 +317,24 @@ void MainWindow::graphClicked(QCPAbstractPlottable *plottable, int dataIndex)
 
 void MainWindow::on_valider_clicked()
 {
-   chargeGraph();
+    listeErreurs.clear();
+    chargeGraph();
+    if(listeErreurs.size()!=0)
+        for(int i=0;i<listeErreurs.size();i++){
+            char tmpC[100];
+             sprintf(tmpC, "%d", listeErreurs[i].codeErreur);
+             strcat(tmpC," erreur : ");
+             strcat(tmpC,listeErreurs[i].message);
+            afficheErreur(tmpC);
+        }
+}
+
+void MainWindow::afficheErreur(char *tmp){
+
+    ui->erreurMessage->setText(tmp);
+    ui->erreurMessage->setStyleSheet("QLabel {  color : red;}");
+    ui->erreurMessage->setVisible(true);
+    ui->pushButton->setVisible(true);
 }
 
 void MainWindow::on_Nettoyer_clicked()
