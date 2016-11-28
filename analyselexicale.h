@@ -9,6 +9,9 @@
 using namespace std;
 
 class AnalyseLexicale {
+private:
+    vector<Erreur> listError;
+
 public:
     AnalyseLexicale();
     string mainString = "ln(x+(-3--5x))-2";
@@ -26,6 +29,8 @@ public:
     bool isParenthesisOpens(char cara);
     bool isParenthesisClosing(char cara);
     vector<Jeton> aToken(string chaine);
+    vector<Erreur> getErrors();
+    void clearErrors();
 
 };
 

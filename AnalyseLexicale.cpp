@@ -1,11 +1,8 @@
 //============================================================================
-// Name        : Part1.cpp
-// Author      : Clement MARTIN
-// Version     : Sans fautes d'orthographe
-// Copyright   : Copyright Clement MARTIN et son esclave
+// Name        : AnalyseLexicale.cpp
+// Author      : Florian MARDON / Clement MARTIN
 //============================================================================
 #include "analyselexicale.h"
-
 
 string AnalyseLexicale::LexemeToString(int nb) {
     static const char * EnumStrings[] = { "FUNCTION", "REEL", "VARIABLE", "OPERATEUR", "PARENT_OPEN", "PARENT_CLOSE" };
@@ -150,7 +147,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                     val.fonction = LN;
                 }
                 else {
-                    throw string("ERREUR: Fonction utilis?e non-reconnue...");
+                    Erreur e;
+                    e.message = "ERREUR: fonction non reconnue";
+                    e.codeErreur = ERR101;
+                    listError.push_back(e);
                 }
             }
             else if (isNumber(cara)) {
@@ -164,7 +164,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                     negatif = false;
                 }
                 if (cara == ',' || cara == '.') {
-                    throw string("ERREUR: L'un des nombres commence par une virgule...");
+                    Erreur e;
+                    e.message = "L'un des nombres commence par une virgule";
+                    e.codeErreur = ERR102;
+                    listError.push_back(e);
                 }
                 while (isNumber(cara) || cara == ',' || cara == '.') {
                     if (verif == false && (cara == ',' || cara == '.')) { //Au premier passage de virgule on va changer les verif en true
@@ -173,7 +176,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                         nomb = nomb + cara;
                     }
                     else if (verif == true && (cara == ',' || cara == '.')) { //Ainsi on peut rep?rer le cas d'une seconde virgules
-                        throw string("ERREUR: 2 virgules pour l'un des nombres...");
+                        Erreur e;
+                        e.message = "2 virgules ou plus pour l'un des nombres";
+                        e.codeErreur = ERR103;
+                        listError.push_back(e);
                     }
                     else { //Et verifier grace a verif2 que le nombre ne se termine pas par une virgule
                         nomb = nomb + cara;
@@ -183,7 +189,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                     cara = chaine[i];
                 }
                 if (verif2 == true) {
-                    throw string("ERREUR: L'un des nombre se termine par une virgule...");
+                    Erreur e;
+                    e.message = "L'un des nombre se termine par une virgule";
+                    e.codeErreur = ERR104;
+                    listError.push_back(e);
                 }
                 else {
                     val.value = string2float(nomb);
@@ -194,8 +203,12 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                 lex = VARIABLE;
             }
             else if (isOperator(cara)) {
-                if (negatif)
-                    throw string("ERREUR: saturation d'operateurs..");
+                if (negatif){
+                    Erreur e;
+                    e.message = "saturation d'operateurs";
+                    e.codeErreur = ERR105;
+                    listError.push_back(e);
+                }
                 if (cara == '+') {
                     lex = OPERATEUR;
                     val.operateur = PLUS;
@@ -211,8 +224,12 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                         negatif = true;
                     }
                     else if (res.back().lexeme == OPERATEUR) {
-                        if (res.at(res.size() - 2).lexeme == OPERATEUR) // Lorsque l'on tombe sur des cas comme "3---3"
-                            throw string ("ERREUR: saturation d'operateurs..");
+                        if (res.at(res.size() - 2).lexeme == OPERATEUR){ // Lorsque l'on tombe sur des cas comme "3---3"
+                            Erreur e;
+                            e.message = "saturation d'operateurs";
+                            e.codeErreur = ERR105;
+                            listError.push_back(e);
+                        }
                         else
                             negatif = true;
                     }
@@ -226,7 +243,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                     val.operateur = DIV;
                 }
                 else {
-                    throw string("FATAL ERROR !"); // Cette erreur est impossible ? atteindre...
+                    Erreur e;
+                    e.message = "FATAL ERROR !";// Cette erreur est impossible ? atteindre...
+                    e.codeErreur = ERR106;
+                    listError.push_back(e);
                 }
             }
             else if (isParenthesisOpens(cara)) {
@@ -236,7 +256,10 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
                 lex = PARENT_CLOSE;
             }
             else {
-                throw string("ERREUR: Un caract?re inconnu a ?t? entr?...");
+                Erreur e;
+                e.message = "Un caractere inconnu a ete entre";
+                e.codeErreur = ERR107;
+                listError.push_back(e);
             }
             if (!negatif) {
                 Jeton token;
@@ -254,7 +277,18 @@ vector<Jeton> AnalyseLexicale::aToken(string chaineS) {
     return res;
 }
 
+vector<Erreur> AnalyseLexicale::getErrors()
+{
+    return this->listError;
+}
+
+void AnalyseLexicale::clearErrors()
+{
+    this->listError.clear();
+}
+
 AnalyseLexicale::AnalyseLexicale()
 {
 
 }
+

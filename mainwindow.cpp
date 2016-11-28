@@ -198,7 +198,8 @@ void MainWindow::chargeGraph()
   string inputString = ui->expression->text().toStdString();
 
   vector<Jeton> jetonTab = aLexicale->aToken(inputString);
-  if(jetonTab.size() != 0) {
+  vector<Erreur> errLexicale = aLexicale->getErrors();
+  if(errLexicale.size() == 0 && jetonTab.size() != 0) {
       vector<Erreur> errTab = aSyntaxique->checkSyntax(jetonTab);
       if(errTab.size() == 0) {
           jetonTab = aSyntaxique->setPriorite(jetonTab);
@@ -263,11 +264,16 @@ void MainWindow::chargeGraph()
               listeErreurs.push_back(errTab[i]);
           }
       }
+  } else {
+      for(int i = 0; i < errLexicale.size(); i++) {
+          listeErreurs.push_back(errLexicale[i]);
+      }
   }
 
   //Nettoyage des erreurs
   this->aSyntaxique->clearErrors();
   this->evaluation->clearErrors();
+  this->aLexicale->clearErrors();
 }
 
 
