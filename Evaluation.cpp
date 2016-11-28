@@ -160,6 +160,10 @@ void Evaluation::detectionErreur(CodeErreur code,char* message){
         listErreur.push_back(e);
 }
 
+vector<Erreur> Evaluation::getErreurs() {
+    return this->listErreur;
+}
+
 
 
 

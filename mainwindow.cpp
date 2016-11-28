@@ -229,6 +229,12 @@ void MainWindow::chargeGraph()
                     y[k] = this->evaluation->evaluation(racine, i);
                     k++;
                   }
+                  vector<Erreur> errEval = this->evaluation->getErreurs();
+                  if(errEval.size() > 0) {
+                      for(int i = 0; i < errEval.size(); i++) {
+                          listeErreurs.push_back(errEval[i]);
+                      }
+                  }
                   QVector<double> x1(k);
                   QVector<double> y1(k);
                   for(int j=0;j<k;j++){

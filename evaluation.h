@@ -11,11 +11,14 @@ class Evaluation{
 public:
     Evaluation();
     Erreur e;
-    vector<Erreur> listErreur;
+    vector<Erreur> getErreurs();
     float evaluation(Noeud* racine, float val);
     void operation(Noeud* ope, float val);
     void fonction(Noeud* fonc, float val);
     void detectionErreur(CodeErreur code,char* message);
+
+private:
+     vector<Erreur> listErreur;
 
 };
 
