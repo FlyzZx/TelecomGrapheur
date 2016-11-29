@@ -1,8 +1,6 @@
-/*
- * Structures de données communes
- */
+#ifndef DATA_H
+#define DATA_H
 
-/* Enumérations */
 typedef enum {
     FUNCTION, REEL, VARIABLE, OPERATEUR, PARENT_OPEN, PARENT_CLOSE
 } Lexeme;
@@ -17,27 +15,33 @@ typedef enum {
 
 typedef enum {
     ERR101 = 101,
-    ERR102 = 102, 
-    ERR103 = 103, 
-    ERR201 = 201, 
-    ERR202 = 202, 
-    ERR203 = 203, 
-    ERR301 = 301, 
-    ERR302 = 302, 
-    ERR303 = 303, 
-    ERR401 = 401, 
-    ERR402 = 402, 
+    ERR102 = 102,
+    ERR103 = 103,
+    ERR104 = 104,
+    ERR105 = 105,
+    ERR106 = 106,
+    ERR107 = 107,
+    ERR201 = 201,
+    ERR202 = 202,
+    ERR203 = 203,
+    ERR301 = 301,
+    ERR302 = 302,
+    ERR303 = 303,
+    ERR304 = 304,
+    ERR305 = 305,
+    ERR401 = 401,
+    ERR402 = 402,
     ERR403 = 403
 } CodeErreur;
 
 /* Gestion erreurs */
 typedef struct {
     CodeErreur codeErreur;
-	char *message;
+    char *message;
 } Erreur;
 
 /* Partie 1 : Analyse Lexicale*/
-typedef union {
+typedef struct {
     Fonction fonction;
     Operateur operateur;
     float value;
@@ -60,3 +64,4 @@ typedef struct Noeud {
 /* Partie 3 : Evaluation */
 
 /* Partie 4 : Graphique */
+#endif // DATA_H

@@ -8,4 +8,4 @@ SOURCES += main.cpp \
 
 HEADERS += \
     ASyntaxique.h \
-    StructDatas.h
+    data.h
