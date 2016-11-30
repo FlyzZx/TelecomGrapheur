@@ -5,9 +5,10 @@ using namespace std;
 
 int main()
 {
+    //ARBRE 1 POUR TEST
     std::vector<Jeton> entree;
     Jeton j;
-    // 9 / Sin(x + 14) / 10
+    // (9 / Sin(x + 14)) / 10
     j.lexeme = PARENT_OPEN;
     entree.push_back(j);
     j.lexeme = REEL;
@@ -39,49 +40,49 @@ int main()
     j.valeur.value = 10;
     entree.push_back(j);
 
+    //ARBRE 2 POUR TEST
+    std::vector<Jeton> entree2;
+    // sin(x+2)
+    j.lexeme = FUNCTION;
+    j.valeur.fonction = SIN;
+    entree2.push_back(j);
+    j.lexeme = PARENT_OPEN;
+    entree2.push_back(j);
+    j.lexeme = VARIABLE;
+    entree2.push_back(j);
+    j.lexeme = OPERATEUR;
+    j.valeur.operateur = PLUS;
+    entree2.push_back(j);
+    j.lexeme = REEL;
+    j.valeur.value = 2;
+    entree2.push_back(j);
+    j.lexeme = PARENT_CLOSE;
+    entree2.push_back(j);
 
-    //Arbre pour G3 (Sin(2 + x))
-    Noeud* racine = (Noeud*)malloc(sizeof(Noeud));
-    racine->jeton.lexeme = FUNCTION;
-    racine->jeton.valeur.fonction = SIN;
-    racine->jeton.priorite = 2;
-    racine->parent = NULL;
-    racine->jeton_d = NULL;
+    //ARBRE 3 POUR TEST
+    std::vector<Jeton> entree3;
+    // 2*x + 7*x
+    j.lexeme = REEL;
+    j.valeur.value = 2;
+    entree3.push_back(j);
+    j.lexeme = OPERATEUR;
+    j.valeur.operateur = MULT;
+    entree3.push_back(j);
+    j.lexeme = VARIABLE;
+    entree3.push_back(j);
+    j.lexeme = OPERATEUR;
+    j.valeur.operateur = PLUS;
+    entree3.push_back(j);
+    j.lexeme = REEL;
+    j.valeur.value = 7;
+    entree3.push_back(j);
+    j.lexeme = OPERATEUR;
+    j.valeur.operateur = MULT;
+    entree3.push_back(j);
+    j.lexeme = VARIABLE;
+    entree3.push_back(j);
 
-    Noeud* ope1 = (Noeud*)malloc(sizeof(Noeud));
-    ope1->jeton.lexeme = OPERATEUR;
-    ope1->jeton.valeur.operateur = PLUS;
-    ope1->jeton.priorite = 11;
-    ope1->parent = racine;
-    racine->jeton_g = ope1;
-
-    Noeud* valeur1 = (Noeud*)malloc(sizeof(Noeud));
-    valeur1->jeton.lexeme = REEL;
-    valeur1->jeton.valeur.value = 2;
-    valeur1->jeton.priorite = 10;
-    valeur1->jeton_d = NULL;
-    valeur1->jeton_g = NULL;
-    valeur1->parent = ope1;
-    ope1->jeton_g = valeur1;
-
-    Noeud* valeur2 = (Noeud*)malloc(sizeof(Noeud));
-    valeur2->jeton.lexeme = VARIABLE;
-    valeur2->jeton.priorite = 10;
-    valeur2->parent = ope1;
-    valeur2->jeton_d = NULL;
-    valeur2->jeton_g = NULL;
-    ope1->jeton_d = valeur2;
-
-
-    //Vider les pointeurs de la memoire a la fin du programme (IMPORTANT !!)
-    delete racine;
-    delete ope1;
-    delete valeur1;
-    delete valeur2;
-
-
-
-
+    //Arbre 1
     Noeud *arbre;
     ASyntaxique *aSyntax = new ASyntaxique();
     if(aSyntax->checkSyntax(entree).size() == 0) {
@@ -89,7 +90,27 @@ int main()
         arbre = aSyntax->creerArbre(entree);
     }
 
+    //Arbre 2
+    Noeud *arbre2;
+    ASyntaxique *aSyntax2 = new ASyntaxique();
+    if(aSyntax2->checkSyntax(entree2).size() == 0) {
+        entree2 = aSyntax->setPriorite(entree2);
+        arbre2 = aSyntax->creerArbre(entree2);
+    }
+
+    //Arbre 3
+    Noeud *arbre3;
+    ASyntaxique *aSyntax3 = new ASyntaxique();
+    if(aSyntax3->checkSyntax(entree3).size() == 0) {
+        entree3 = aSyntax3->setPriorite(entree3);
+        arbre3 = aSyntax3->creerArbre(entree3);
+    }
+
     delete aSyntax;
     delete arbre;
+    delete arbre2;
+    delete arbre3;
+    delete aSyntax2;
+    delete aSyntax3;
     return 0;
 }
